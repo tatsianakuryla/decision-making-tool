@@ -1,3 +1,5 @@
+import { LocalStorage } from '../local-storage/local-storage';
+
 export type Option = {
   id: number;
   title: string;
@@ -6,7 +8,9 @@ export type Option = {
 
 export class Options {
   constructor(
-    private _options: Option[] = [{ id: 1, title: '', weight: '' }],
+    private _options: Option[] = LocalStorage.getFromLocalStorage(
+      'options',
+    ) ?? [{ id: 1, title: '', weight: '' }],
   ) {}
 
   public get options(): Option[] {
@@ -25,19 +29,23 @@ export class Options {
 
     newOption.id = maxId + 1;
     this._options.push(newOption);
+    LocalStorage.saveToLocalStorage('options', this._options);
   }
 
   public removeOption(id: number): void {
     this._options = this._options.filter((option) => option.id !== id);
+    LocalStorage.saveToLocalStorage('options', this._options);
   }
 
   public editOption(editedOption: Option): void {
     this._options = this._options.map((option) =>
       option.id === editedOption.id ? { ...option, ...editedOption } : option,
     );
+    LocalStorage.saveToLocalStorage('options', this._options);
   }
 
   public clearOptionsList(): void {
     this._options = [];
+    LocalStorage.saveToLocalStorage('options', this._options);
   }
 }
