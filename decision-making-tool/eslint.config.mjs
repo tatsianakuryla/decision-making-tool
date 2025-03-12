@@ -3,7 +3,6 @@ const tseslint = (await import('@typescript-eslint/eslint-plugin')).default;
 const tsparser = (await import('@typescript-eslint/parser')).default;
 const unicorn = (await import('eslint-plugin-unicorn')).default;
 
-/** @type {import("eslint").FlatConfig[]} */
 export default [
   {
     languageOptions: {
@@ -48,7 +47,6 @@ export default [
       '@typescript-eslint/member-ordering': 'error',
       'class-methods-use-this': 'error',
 
-      // Добавляем ваши дополнительные правила
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       'unicorn/no-array-callback-reference': 'off',
       'unicorn/no-array-for-each': 'off',
@@ -73,7 +71,6 @@ export default [
     files: ['**/*.{ts,tsx}'],
     settings: {
       eslint: {
-        // Включаем правила noInlineConfig и reportUnusedDisableDirectives
         noInlineConfig: true,
         reportUnusedDisableDirectives: true,
       },
