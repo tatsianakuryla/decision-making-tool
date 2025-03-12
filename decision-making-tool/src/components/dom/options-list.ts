@@ -1,5 +1,6 @@
 import { createElementWithIdClass } from '../../utils/helpers';
 import { type Option } from '../options/options';
+import { options } from '../..';
 
 export class OptionsList {
   private _optionsList: HTMLElement;
@@ -38,6 +39,9 @@ export class OptionsList {
       optionTitle.value = element.title;
       optionTitle.placeholder = 'Title';
       option.append(optionTitle);
+      optionTitle.addEventListener('change', () => {
+        options.editOption({ id: element.id, title: optionTitle.value });
+      });
     }
 
     const optionWeight = createElementWithIdClass('input', '', [
@@ -49,6 +53,9 @@ export class OptionsList {
       optionWeight.value = element.weight;
       optionWeight.placeholder = 'Weight';
       option.append(optionWeight);
+      optionWeight.addEventListener('change', () => {
+        options.editOption({ id: element.id, weight: optionWeight.value });
+      });
     }
 
     if (this.optionsList) {

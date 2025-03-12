@@ -37,7 +37,7 @@ export class Options {
     LocalStorage.saveToLocalStorage('options', this._options);
   }
 
-  public editOption(editedOption: Option): void {
+  public editOption(editedOption: Partial<Option>): void {
     this._options = this._options.map((option) =>
       option.id === editedOption.id ? { ...option, ...editedOption } : option,
     );

@@ -5,7 +5,7 @@ import { Options } from './components/options/options';
 
 const appContainer = Container.createAppContainer();
 
-const options = new Options();
+export const options = new Options();
 const optionsList = new OptionsList();
 
 const optionsListDom = optionsList.optionsList;
