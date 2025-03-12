@@ -7,11 +7,13 @@ export type Option = {
 };
 
 export class Options {
-  constructor(
-    private _options: Option[] = LocalStorage.getFromLocalStorage(
-      'options',
-    ) ?? [{ id: 1, title: '', weight: '' }],
-  ) {}
+  private _options: Option[];
+
+  constructor() {
+    this._options = LocalStorage.getFromLocalStorage('options') ?? [
+      { id: 1, title: '', weight: '' },
+    ];
+  }
 
   public get options(): Option[] {
     return this._options;

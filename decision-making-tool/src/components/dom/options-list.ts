@@ -51,7 +51,7 @@ export class OptionsList {
 
     if (optionWeight instanceof HTMLInputElement) {
       optionWeight.type = 'number';
-      optionWeight.value = element.weight;
+      optionWeight.value = element.weight.toString();
       optionWeight.placeholder = 'Weight';
       option.append(optionWeight);
       optionWeight.addEventListener('change', () => {

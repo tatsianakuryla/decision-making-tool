@@ -3,24 +3,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
-  entry: './src/index.ts',
+  entry: './decision-making-tool/src/index.ts',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  mode: 'development',
+  devtool: 'source-map',
   devServer: {
     static: './dist',
     hot: true,
-    open: true,
-  },
-  resolve: {
-    extensions: ['.ts', '.js'],
   },
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
       },
@@ -30,10 +27,13 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './decision-making-tool/src/index.html',
     }),
   ],
 };

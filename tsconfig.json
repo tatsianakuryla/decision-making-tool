@@ -2,32 +2,24 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "ESNext",
-    "moduleResolution": "Node",
-    "rootDir": "src",
-    "outDir": "./dist",
+    "moduleResolution": "node",
+    "outDir": "./decision-making-tool/dist",
+    "rootDir": "./decision-making-tool/src",
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "sourceMap": true,
-    "allowJs": false,
-    "checkJs": false,
-    "strictPropertyInitialization": true,
-    "strictBuiltinIteratorReturn": true,
-    "useUnknownInCatchVariables": true
+    "resolveJsonModule": true
   },
-  "include": ["src", "webpack.config.js", "decision-making-tool/src"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "decision-making-tool/src/**/*",
+    "commitlint.config.js",
+    "webpack.config.js",
+    "eslint.config.mjs"
+  ],
+  "exclude": ["node_modules"]
 }

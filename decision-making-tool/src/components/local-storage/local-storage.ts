@@ -7,7 +7,7 @@ export class LocalStorage {
 
   public static getFromLocalStorage(key: string): Option[] | [] {
     const result = localStorage.getItem(key);
-    return result ? JSON.parse(result) : [];
+    return result ? JSON.parse(result) : [{ id: 1, title: '', weight: '' }];
   }
 
   public static clearLocalStorage(): void {

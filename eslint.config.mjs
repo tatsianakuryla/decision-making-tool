@@ -1,40 +1,36 @@
-const js = (await import('@eslint/js')).default;
-const tseslint = (await import('@typescript-eslint/eslint-plugin')).default;
-const tsparser = (await import('@typescript-eslint/parser')).default;
-const unicorn = (await import('eslint-plugin-unicorn')).default;
+import js from '@eslint/js';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import tsparser from '@typescript-eslint/parser';
+import unicorn from 'eslint-plugin-unicorn';
 
-/** @type {import("eslint").FlatConfig[]} */
 export default [
+  {
+    ignores: ['commitlint.config.js', 'webpack.config.js'],
+  },
+  js.configs.recommended,
   {
     languageOptions: {
       parser: tsparser,
+      ecmaVersion: 'latest',
+      sourceType: 'module',
       parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
         project: './tsconfig.json',
       },
       globals: {
-        window: 'readonly',
         document: 'readonly',
-        console: 'readonly',
-        process: 'readonly',
-        module: 'readonly',
-        require: 'readonly',
-        __dirname: 'readonly',
+        window: 'readonly',
+        localStorage: 'readonly',
+        HTMLElement: 'readonly',
+        HTMLInputElement: 'readonly',
+        HTMLTextAreaElement: 'readonly',
       },
     },
     plugins: {
       '@typescript-eslint': tseslint,
-      unicorn: unicorn,
+      unicorn,
     },
     rules: {
-      ...js.rules,
-      ...tseslint.configs.recommended.rules,
-      ...unicorn.configs.recommended.rules,
-
       'no-console': 'warn',
-      '@typescript-eslint/no-unused-vars': 'warn',
-      'unicorn/prefer-query-selector': 'warn',
       '@typescript-eslint/consistent-type-assertions': [
         'error',
         { assertionStyle: 'never' },
@@ -47,8 +43,6 @@ export default [
       ],
       '@typescript-eslint/member-ordering': 'error',
       'class-methods-use-this': 'error',
-
-      // Добавляем ваши дополнительные правила
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       'unicorn/no-array-callback-reference': 'off',
       'unicorn/no-array-for-each': 'off',
@@ -70,23 +64,5 @@ export default [
         },
       ],
     },
-    files: ['**/*.{ts,tsx}'],
-    settings: {
-      eslint: {
-        // Включаем правила noInlineConfig и reportUnusedDisableDirectives
-        noInlineConfig: true,
-        reportUnusedDisableDirectives: true,
-      },
-    },
-  },
-  {
-    languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-    },
-    rules: {
-      'no-console': 'warn',
-    },
-    files: ['**/*.js'],
   },
 ];
