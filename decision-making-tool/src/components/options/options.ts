@@ -13,13 +13,18 @@ export class Options {
     return this._options;
   }
 
-  public addOption(option: Option): void {
+  public addOption(option?: Option): void {
+    const defaultOption: Option = { id: 0, title: '', weight: '' };
+
+    const newOption = option ? { ...defaultOption, ...option } : defaultOption;
+
     const maxId = this._options.reduce(
       (accum, current) => Math.max(accum, current.id),
       0,
     );
-    option.id = maxId + 1;
-    this._options.push(option);
+
+    newOption.id = maxId + 1;
+    this._options.push(newOption);
   }
 
   public removeOption(id: number): void {

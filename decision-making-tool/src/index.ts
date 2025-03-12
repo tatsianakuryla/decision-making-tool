@@ -2,7 +2,6 @@ import { Button } from './components/dom/button';
 import { Container } from './components/dom/container';
 import { OptionsList } from './components/dom/options-list';
 import { Options } from './components/options/options';
-import './styles/style.css';
 
 const appContainer = Container.createAppContainer();
 
@@ -34,4 +33,10 @@ optionsList.renderOptionsList(options.options);
 
 clearListButton.addEventListener('click', () => {
   options.clearOptionsList();
+  optionsList.renderOptionsList(options.options);
+});
+
+addOptionButton.addEventListener('click', () => {
+  options.addOption();
+  optionsList.renderOptionsList(options.options);
 });
