@@ -1,6 +1,7 @@
 import { createElementWithIdClass } from '../../utils/helpers';
 import { type Option } from '../options/options';
 import { options } from '../..';
+import { Button } from './button';
 
 export class OptionsList {
   private _optionsList: HTMLElement;
@@ -57,6 +58,13 @@ export class OptionsList {
         options.editOption({ id: element.id, weight: optionWeight.value });
       });
     }
+
+    const deleteOptionButton = Button.createButton('Delete option');
+    option.append(deleteOptionButton);
+    deleteOptionButton.addEventListener('click', () => {
+      options.removeOption(element.id);
+      this.renderOptionsList(options.options);
+    });
 
     if (this.optionsList) {
       this.optionsList.classList.contains('app__options-list');
