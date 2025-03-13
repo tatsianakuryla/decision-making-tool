@@ -1,19 +1,19 @@
 import { createElementWithIdClass } from '../../utils/helpers';
 import { createParagraph, toggleClassListHidden } from '../../utils/helpers';
 import { type Option } from '../options/options';
-import { options, optionsList, pasteErrorModule } from '../..';
+import { options, optionsList, pasteErrorModal } from '../..';
 import { Button } from './button';
 
-export class PasteListModule {
-  private _pasteListModule: HTMLElement;
+export class PasteListModal {
+  private _pasteListModal: HTMLElement;
   private _pasteListText: HTMLElement;
   private _pasteListPlaceholder: HTMLElement;
 
   constructor() {
-    this._pasteListModule = createElementWithIdClass(
+    this._pasteListModal = createElementWithIdClass(
       'div',
-      'app__paste-list-module',
-      ['app__paste-list-module', 'hidden'],
+      'app__paste-list-modal',
+      ['app__paste-list-modal', 'hidden'],
     );
 
     this._pasteListText = createElementWithIdClass(
@@ -56,7 +56,7 @@ export class PasteListModule {
     const confirmButton = Button.createButton('Confirm');
     const cancelButton = Button.createButton('Cancel');
 
-    this._pasteListModule.append(
+    this._pasteListModal.append(
       this._pasteListText,
       this._pasteListPlaceholder,
       confirmButton,
@@ -73,25 +73,25 @@ export class PasteListModule {
     });
 
     cancelButton.addEventListener('click', () => {
-      this.closePasteListModule();
+      this.closePasteListModal();
     });
 
     confirmButton.addEventListener('click', () => {
       this.getPasteListTextValue();
-      this.closePasteListModule();
+      this.closePasteListModal();
     });
   }
 
-  public get pasteListModule(): HTMLElement {
-    return this._pasteListModule;
+  public get pasteListModal(): HTMLElement {
+    return this._pasteListModal;
   }
 
-  public openPasteListModule(): void {
-    toggleClassListHidden(this._pasteListModule, false);
+  public openPasteListModal(): void {
+    toggleClassListHidden(this._pasteListModal, false);
   }
 
-  public closePasteListModule(): void {
-    toggleClassListHidden(this._pasteListModule, true);
+  public closePasteListModal(): void {
+    toggleClassListHidden(this._pasteListModal, true);
     toggleClassListHidden(this._pasteListPlaceholder, false);
     if (this._pasteListText instanceof HTMLTextAreaElement) {
       this._pasteListText.value = '';
@@ -137,7 +137,7 @@ export class PasteListModule {
       optionsList.renderOptionsList(options.options);
 
       if (!isAllOptionsAdded) {
-        pasteErrorModule.openPastErrorModule();
+        pasteErrorModal.openPastErrorModal();
       }
     }
   }

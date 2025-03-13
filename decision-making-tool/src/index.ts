@@ -2,8 +2,8 @@ import { Button } from './components/dom/button';
 import { Container } from './components/dom/container';
 import { OptionsList } from './components/dom/options-list';
 import { Options } from './components/options/options';
-import { PasteListModule } from './components/dom/paste-list-module';
-import { PasteErrorModule } from './components/dom/paste-error-module';
+import { PasteListModal } from './components/dom/paste-list-modal';
+import { PasteErrorModal } from './components/dom/paste-error-modal';
 import './styles/style.css';
 import { SaveOptions } from './components/link-to-save-options/link-to-save-options';
 
@@ -11,13 +11,13 @@ const appContainer = Container.createAppContainer();
 
 export const options = new Options();
 export const optionsList = new OptionsList();
-const pasteListModule = new PasteListModule();
-export const pasteErrorModule = new PasteErrorModule();
+const pasteListModal = new PasteListModal();
+export const pasteErrorModal = new PasteErrorModal();
 const saveOptions = new SaveOptions();
 
 const optionsListDom = optionsList.optionsList;
-const pasteListModuleDom = pasteListModule.pasteListModule;
-const pasteErrorModuleDom = pasteErrorModule.pasteErrorModule;
+const pasteListModalDom = pasteListModal.pasteListModal;
+const pasteErrorModalDom = pasteErrorModal.pasteErrorModal;
 
 const addOptionButton = Button.createButton('Add new option');
 const pasteOptionsButton = Button.createButton('Paste list');
@@ -35,8 +35,8 @@ appContainer.append(
   saveListToFileButton,
   loadListFromFileButton,
   startButton,
-  pasteListModuleDom,
-  pasteErrorModuleDom,
+  pasteListModalDom,
+  pasteErrorModalDom,
 );
 
 document.body.append(appContainer);
@@ -53,7 +53,7 @@ addOptionButton.addEventListener('click', () => {
 });
 
 pasteOptionsButton.addEventListener('click', () => {
-  pasteListModule.openPasteListModule();
+  pasteListModal.openPasteListModal();
 });
 
 saveListToFileButton.addEventListener('click', () => {
@@ -62,19 +62,19 @@ saveListToFileButton.addEventListener('click', () => {
 
 document.addEventListener('click', (event) => {
   if (
-    !pasteListModuleDom.classList.contains('hidden') &&
-    !event.composedPath().includes(pasteListModuleDom) &&
+    !pasteListModalDom.classList.contains('hidden') &&
+    !event.composedPath().includes(pasteListModalDom) &&
     event.target !== pasteOptionsButton
   ) {
-    pasteListModule.closePasteListModule();
+    pasteListModal.closePasteListModal();
   }
 });
 
 document.addEventListener('keydown', (event) => {
   if (
     event.key === 'Escape' &&
-    !pasteListModuleDom.classList.contains('hidden')
+    !pasteListModalDom.classList.contains('hidden')
   ) {
-    pasteListModule.closePasteListModule();
+    pasteListModal.closePasteListModal();
   }
 });
