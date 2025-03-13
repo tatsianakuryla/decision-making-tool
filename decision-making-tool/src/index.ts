@@ -5,6 +5,7 @@ import { Options } from './components/options/options';
 import { PasteListModule } from './components/dom/paste-list-module';
 import { PasteErrorModule } from './components/dom/paste-error-module';
 import './styles/style.css';
+import { SaveOptions } from './components/link-to-save-options/link-to-save-options';
 
 const appContainer = Container.createAppContainer();
 
@@ -12,13 +13,14 @@ export const options = new Options();
 export const optionsList = new OptionsList();
 const pasteListModule = new PasteListModule();
 export const pasteErrorModule = new PasteErrorModule();
+const saveOptions = new SaveOptions();
 
 const optionsListDom = optionsList.optionsList;
 const pasteListModuleDom = pasteListModule.pasteListModule;
 const pasteErrorModuleDom = pasteErrorModule.pasteErrorModule;
 
 const addOptionButton = Button.createButton('Add new option');
-const pasteListButton = Button.createButton('Paste list');
+const pasteOptionsButton = Button.createButton('Paste list');
 const clearListButton = Button.createButton('Clear list');
 const saveListToFileButton = Button.createButton('Save list to file');
 const loadListFromFileButton = Button.createButton('Load list from file');
@@ -28,7 +30,7 @@ appContainer.append(
   Container.createAppTitle(),
   optionsListDom,
   addOptionButton,
-  pasteListButton,
+  pasteOptionsButton,
   clearListButton,
   saveListToFileButton,
   loadListFromFileButton,
@@ -50,15 +52,19 @@ addOptionButton.addEventListener('click', () => {
   optionsList.renderOptionsList(options.options);
 });
 
-pasteListButton.addEventListener('click', () => {
+pasteOptionsButton.addEventListener('click', () => {
   pasteListModule.openPasteListModule();
+});
+
+saveListToFileButton.addEventListener('click', () => {
+  saveOptions.saveOptions();
 });
 
 document.addEventListener('click', (event) => {
   if (
     !pasteListModuleDom.classList.contains('hidden') &&
     !event.composedPath().includes(pasteListModuleDom) &&
-    event.target !== pasteListButton
+    event.target !== pasteOptionsButton
   ) {
     pasteListModule.closePasteListModule();
   }
