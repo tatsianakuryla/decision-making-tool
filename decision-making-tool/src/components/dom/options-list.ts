@@ -1,4 +1,4 @@
-import { createElementWithIdClass } from '../../utils/helpers';
+import { createElementWithClass } from '../../utils/helpers';
 import { type Option } from '../options/options';
 import { options } from '../..';
 import { Button } from './button';
@@ -7,9 +7,7 @@ export class OptionsList {
   private _optionsList: HTMLElement;
 
   constructor() {
-    this._optionsList = createElementWithIdClass('ul', 'app__options-list', [
-      'app__options-list',
-    ]);
+    this._optionsList = createElementWithClass('ul', ['app__options-list']);
   }
 
   public get optionsList(): HTMLElement {
@@ -24,16 +22,14 @@ export class OptionsList {
   }
 
   private createOptionsItem(element: Option): HTMLElement {
-    const option = createElementWithIdClass('li', '', ['app__option']);
+    const option = createElementWithClass('li', ['app__option']);
     option.dataset.id = element.id.toString();
 
-    const optionId = createElementWithIdClass('div', '', ['app__option-id']);
+    const optionId = createElementWithClass('div', ['app__option-id']);
     optionId.textContent = 'ID: #' + element.id.toString();
     option.append(optionId);
 
-    const optionTitle = createElementWithIdClass('input', '', [
-      'app__option-title',
-    ]);
+    const optionTitle = createElementWithClass('input', ['app__option-title']);
 
     if (optionTitle instanceof HTMLInputElement) {
       optionTitle.type = 'text';
@@ -45,7 +41,7 @@ export class OptionsList {
       });
     }
 
-    const optionWeight = createElementWithIdClass('input', '', [
+    const optionWeight = createElementWithClass('input', [
       'app__option-weight',
     ]);
 

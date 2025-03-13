@@ -1,12 +1,12 @@
-import { createElementWithIdClass } from '../../utils/helpers';
+import { createElementWithClass } from '../../utils/helpers';
 
 export class Container {
   public static createAppContainer(): HTMLElement {
-    return createElementWithIdClass('div', 'app', ['app']);
+    return createElementWithClass('div', ['app']);
   }
 
   public static createAppTitle(): HTMLElement {
-    const title = createElementWithIdClass('h1', 'app__title', ['app__title']);
+    const title = createElementWithClass('h1', ['app__title']);
     title.textContent = 'Decision Making Tool';
 
     return title;

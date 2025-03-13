@@ -1,4 +1,4 @@
-import { createElementWithIdClass } from '../../utils/helpers';
+import { createElementWithClass } from '../../utils/helpers';
 import { createParagraph, toggleClassListHidden } from '../../utils/helpers';
 import { type Option } from '../options/options';
 import {
@@ -18,25 +18,19 @@ export class PasteListModal {
   private _isOpen: boolean;
 
   constructor() {
-    this._pasteListModal = createElementWithIdClass(
-      'div',
+    this._pasteListModal = createElementWithClass('div', [
       'app__paste-list-modal',
-      ['app__paste-list-modal'],
-    );
+    ]);
 
     this._isOpen = false;
 
-    this._pasteListText = createElementWithIdClass(
-      'textarea',
+    this._pasteListText = createElementWithClass('textarea', [
       'app__paste-list-textarea',
-      ['app__paste-list-textarea'],
-    );
+    ]);
 
-    this._pasteListPlaceholder = createElementWithIdClass(
-      'div',
+    this._pasteListPlaceholder = createElementWithClass('div', [
       'app__paste-list-placeholder',
-      ['app__paste-list-placeholder'],
-    );
+    ]);
 
     const pasteListInfo = createParagraph(
       'app__paste-list-info',

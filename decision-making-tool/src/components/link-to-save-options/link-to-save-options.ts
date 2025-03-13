@@ -1,15 +1,13 @@
-import { createElementWithIdClass } from '../../utils/helpers';
+import { createElementWithClass } from '../../utils/helpers';
 import { options } from '../..';
 
 export class SaveOptions {
   private _linkToSave: HTMLElement;
 
   constructor() {
-    this._linkToSave = createElementWithIdClass(
-      'a',
+    this._linkToSave = createElementWithClass('a', [
       'app__link-to-save-options',
-      ['app__link-to-save-options'],
-    );
+    ]);
   }
 
   public get linkToSave(): HTMLElement {

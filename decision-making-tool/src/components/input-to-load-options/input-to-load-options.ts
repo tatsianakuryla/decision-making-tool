@@ -1,16 +1,15 @@
 import { errorModal, options, optionsList } from '../..';
-import { createElementWithIdClass } from '../../utils/helpers';
+import { createElementWithClass } from '../../utils/helpers';
 import { type Option } from '../options/options';
 
 export class LoadOptions {
   private _inputToLoad: HTMLElement;
 
   constructor() {
-    this._inputToLoad = createElementWithIdClass(
-      'input',
+    this._inputToLoad = createElementWithClass('input', [
       'app__input-to-load-options',
-      ['app__input-to-load-options', 'hidden'],
-    );
+      'hidden',
+    ]);
 
     if (this._inputToLoad instanceof HTMLInputElement) {
       this._inputToLoad.type = 'file';

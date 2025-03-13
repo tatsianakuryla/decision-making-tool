@@ -1,30 +1,23 @@
-export function createElementWithIdClass(
+export function createElementWithClass(
   tag: string,
-  id: string = '',
-  classes: string[] = [],
+  classes?: string[],
 ): HTMLElement {
-  const newElement: HTMLElement = document.createElement(tag);
+  const newElement = document.createElement(tag);
 
-  if (id.length > 0) {
-    newElement.id = id;
-  }
-
-  if (classes.length > 0) {
-    newElement.classList.add(...classes);
-  }
+  if (classes?.length) newElement.classList.add(...classes);
 
   return newElement;
 }
 
 export function createParagraph(className: string, text: string): HTMLElement {
-  const paragraph = createElementWithIdClass('p', className, [className]);
+  const paragraph = createElementWithClass('p', [className]);
   paragraph.textContent = text;
   return paragraph;
 }
 
 export function toggleClassListHidden(
   element: HTMLElement,
-  isShown: boolean,
+  isHidden: boolean,
 ): void {
-  element.classList.toggle('hidden', isShown);
+  element.classList.toggle('hidden', isHidden);
 }

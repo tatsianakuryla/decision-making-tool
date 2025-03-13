@@ -1,6 +1,6 @@
 import { scrollController } from '../..';
 import {
-  createElementWithIdClass,
+  createElementWithClass,
   createParagraph,
   toggleClassListHidden,
 } from '../../utils/helpers';
@@ -9,7 +9,7 @@ export class ErrorModal {
   private _errorModal: HTMLElement;
 
   constructor() {
-    this._errorModal = createElementWithIdClass('div', 'app__error-modal', [
+    this._errorModal = createElementWithClass('div', [
       'app__error-modal',
       'hidden',
     ]);
