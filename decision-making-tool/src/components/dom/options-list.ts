@@ -28,7 +28,7 @@ export class OptionsList {
     option.dataset.id = element.id.toString();
 
     const optionId = createElementWithIdClass('div', '', ['app__option-id']);
-    optionId.textContent = 'ID: ' + element.id.toString();
+    optionId.textContent = 'ID: #' + element.id.toString();
     option.append(optionId);
 
     const optionTitle = createElementWithIdClass('input', '', [
