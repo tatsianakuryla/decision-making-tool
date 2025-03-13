@@ -5,6 +5,12 @@ import unicorn from 'eslint-plugin-unicorn';
 
 export default [
   {
+    linterOptions: {
+      noInlineConfig: true,
+      reportUnusedDisableDirectives: true,
+    },
+  },
+  {
     ignores: ['commitlint.config.js', 'webpack.config.js'],
   },
   js.configs.recommended,

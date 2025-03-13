@@ -1,4 +1,3 @@
-import { scrollController } from '../..';
 import {
   createElementWithClass,
   createParagraph,

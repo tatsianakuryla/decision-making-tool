@@ -3,7 +3,9 @@
     "build": "webpack --mode production",
     "start": "webpack serve --mode development",
     "format": "prettier --write .",
+    "format:check": "prettier --list-different --ignore-unknown .",
     "lint": "eslint decision-making-tool/src --ext .ts,.tsx,.js,.jsx --fix",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "stylelint": "stylelint 'decision-making-tool/src/styles/**/*.{css,scss}' --fix",
     "prepare": "husky install",
     "test": "echo \"No tests specified\" && exit 0"

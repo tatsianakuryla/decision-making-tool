@@ -4,6 +4,7 @@ import { type Option } from '../options/options';
 
 export class LoadOptions {
   private _inputToLoad: HTMLElement;
+  private _readData: Option[];
 
   constructor() {
     this._inputToLoad = createElementWithClass('input', [
@@ -19,6 +20,8 @@ export class LoadOptions {
     this._inputToLoad.addEventListener('change', (event) =>
       this.readLoadedFile(event),
     );
+
+    this._readData = [];
   }
 
   public get inputToLoad(): HTMLElement {
@@ -42,7 +45,7 @@ export class LoadOptions {
       const file = target.files[0];
       const reader = new FileReader();
 
-      reader.onload = () => {
+      reader.onload = (): void => {
         try {
           if (reader instanceof FileReader) {
             const result = reader.result;
@@ -50,27 +53,26 @@ export class LoadOptions {
               throw new Error('Invalid file content');
             }
 
-            const data: Option[] = JSON.parse(result);
+            this._readData = JSON.parse(result);
 
-            if (!Array.isArray(data)) {
+            if (!Array.isArray(this._readData)) {
               errorModal.open('Invalid file format!');
               throw new Error('Invalid file format');
             }
 
-            if (data.length === 0) {
+            if (this._readData.length === 0) {
               errorModal.open('Options were not found!');
             }
 
             options.clearOptionsList();
 
-            data.forEach((object: Option) => {
+            this._readData.forEach((object: Option) => {
               options.addOption(object);
             });
 
             optionsList.renderOptionsList(options.options);
           }
-        } catch (error) {
-          console.error('Error loading file:', error);
+        } catch {
           errorModal.open('Invalid file format!');
         }
       };
