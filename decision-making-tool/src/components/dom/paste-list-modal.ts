@@ -1,7 +1,7 @@
 import { createElementWithIdClass } from '../../utils/helpers';
 import { createParagraph, toggleClassListHidden } from '../../utils/helpers';
 import { type Option } from '../options/options';
-import { options, optionsList, pasteErrorModal } from '../..';
+import { options, optionsList, errorModal } from '../..';
 import { Button } from './button';
 
 export class PasteListModal {
@@ -137,7 +137,9 @@ export class PasteListModal {
       optionsList.renderOptionsList(options.options);
 
       if (!isAllOptionsAdded) {
-        pasteErrorModal.openPastErrorModal();
+        errorModal.openErrorModal(
+          'Not all options were added. An option must be formatted strictly in the following way: title, weight: title, weight',
+        );
       }
     }
   }

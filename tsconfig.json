@@ -13,7 +13,8 @@
     "strictPropertyInitialization": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "lib": ["dom", "esnext"]
   },
   "include": [
     "decision-making-tool/src/**/*",

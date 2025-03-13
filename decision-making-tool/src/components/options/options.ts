@@ -29,7 +29,7 @@ export class Options {
       0,
     );
 
-    newOption.id = maxId + 1;
+    newOption.id = newOption.id === 0 ? maxId + 1 : newOption.id;
     this._options.push(newOption);
     LocalStorage.saveToLocalStorage('options', this._options);
   }

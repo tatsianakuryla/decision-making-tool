@@ -3,21 +3,23 @@ import { Container } from './components/dom/container';
 import { OptionsList } from './components/dom/options-list';
 import { Options } from './components/options/options';
 import { PasteListModal } from './components/dom/paste-list-modal';
-import { PasteErrorModal } from './components/dom/paste-error-modal';
+import { ErrorModal } from './components/dom/error-modal';
 import './styles/style.css';
 import { SaveOptions } from './components/link-to-save-options/link-to-save-options';
+import { LoadOptions } from './components/input-to-load-options/input-to-load-options';
 
 const appContainer = Container.createAppContainer();
 
 export const options = new Options();
 export const optionsList = new OptionsList();
 const pasteListModal = new PasteListModal();
-export const pasteErrorModal = new PasteErrorModal();
+export const errorModal = new ErrorModal();
 const saveOptions = new SaveOptions();
+const loadOptions = new LoadOptions();
 
 const optionsListDom = optionsList.optionsList;
 const pasteListModalDom = pasteListModal.pasteListModal;
-const pasteErrorModalDom = pasteErrorModal.pasteErrorModal;
+const errorModalDom = errorModal.pasteErrorModal;
 
 const addOptionButton = Button.createButton('Add new option');
 const pasteOptionsButton = Button.createButton('Paste list');
@@ -36,7 +38,7 @@ appContainer.append(
   loadListFromFileButton,
   startButton,
   pasteListModalDom,
-  pasteErrorModalDom,
+  errorModalDom,
 );
 
 document.body.append(appContainer);
@@ -58,6 +60,10 @@ pasteOptionsButton.addEventListener('click', () => {
 
 saveListToFileButton.addEventListener('click', () => {
   saveOptions.saveOptions();
+});
+
+loadListFromFileButton.addEventListener('click', () => {
+  loadOptions.loadOptions();
 });
 
 document.addEventListener('click', (event) => {
