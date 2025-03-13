@@ -13,7 +13,6 @@ export class ErrorModal {
       'app__paste-error-modal',
       ['app__paste-error-modal', 'hidden'],
     );
-
     this._errorModal.append(createParagraph('app__paste-error-text', ''));
   }
 

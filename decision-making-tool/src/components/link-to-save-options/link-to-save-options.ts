@@ -3,6 +3,7 @@ import { options } from '../..';
 
 export class SaveOptions {
   private _linkToSave: HTMLElement;
+
   constructor() {
     this._linkToSave = createElementWithIdClass(
       'a',

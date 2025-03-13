@@ -1,20 +1,29 @@
 import { createElementWithIdClass } from '../../utils/helpers';
 import { createParagraph, toggleClassListHidden } from '../../utils/helpers';
 import { type Option } from '../options/options';
-import { options, optionsList, errorModal } from '../..';
+import {
+  options,
+  optionsList,
+  errorModal,
+  appContainer,
+  pasteListModalDom,
+} from '../..';
 import { Button } from './button';
 
 export class PasteListModal {
   private _pasteListModal: HTMLElement;
   private _pasteListText: HTMLElement;
   private _pasteListPlaceholder: HTMLElement;
+  private _isPasteModalOpen: boolean;
 
   constructor() {
     this._pasteListModal = createElementWithIdClass(
       'div',
       'app__paste-list-modal',
-      ['app__paste-list-modal', 'hidden'],
+      ['app__paste-list-modal'],
     );
+
+    this._isPasteModalOpen = false;
 
     this._pasteListText = createElementWithIdClass(
       'textarea',
@@ -86,16 +95,22 @@ export class PasteListModal {
     return this._pasteListModal;
   }
 
+  public get isPasteModalOpen(): boolean {
+    return this._isPasteModalOpen;
+  }
+
   public openPasteListModal(): void {
-    toggleClassListHidden(this._pasteListModal, false);
+    appContainer.append(pasteListModalDom);
+    this._isPasteModalOpen = true;
   }
 
   public closePasteListModal(): void {
-    toggleClassListHidden(this._pasteListModal, true);
-    toggleClassListHidden(this._pasteListPlaceholder, false);
     if (this._pasteListText instanceof HTMLTextAreaElement) {
       this._pasteListText.value = '';
     }
+    appContainer.removeChild(pasteListModalDom);
+    toggleClassListHidden(this._pasteListPlaceholder, false);
+    this._isPasteModalOpen = false;
   }
 
   private getPasteListTextValue(): void {
