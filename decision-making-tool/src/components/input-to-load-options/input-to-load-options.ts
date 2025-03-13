@@ -54,12 +54,12 @@ export class LoadOptions {
             const data: Option[] = JSON.parse(result);
 
             if (!Array.isArray(data)) {
-              errorModal.openErrorModal('Invalid file format!');
+              errorModal.open('Invalid file format!');
               throw new Error('Invalid file format');
             }
 
             if (data.length === 0) {
-              errorModal.openErrorModal('Options were not found!');
+              errorModal.open('Options were not found!');
             }
 
             options.clearOptionsList();
@@ -72,7 +72,7 @@ export class LoadOptions {
           }
         } catch (error) {
           console.error('Error loading file:', error);
-          errorModal.openErrorModal('Invalid file format!');
+          errorModal.open('Invalid file format!');
         }
       };
 

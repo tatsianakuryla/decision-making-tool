@@ -1,3 +1,4 @@
+import { scrollController } from '../..';
 import {
   createElementWithIdClass,
   createParagraph,
@@ -8,24 +9,23 @@ export class ErrorModal {
   private _errorModal: HTMLElement;
 
   constructor() {
-    this._errorModal = createElementWithIdClass(
-      'div',
-      'app__paste-error-modal',
-      ['app__paste-error-modal', 'hidden'],
-    );
-    this._errorModal.append(createParagraph('app__paste-error-text', ''));
+    this._errorModal = createElementWithIdClass('div', 'app__error-modal', [
+      'app__error-modal',
+      'hidden',
+    ]);
+    this._errorModal.append(createParagraph('app__error-text', ''));
   }
 
-  public get pasteErrorModal(): HTMLElement {
+  public get errorModal(): HTMLElement {
     return this._errorModal;
   }
 
-  public openErrorModal(text: string): void {
+  public open(text: string): void {
     toggleClassListHidden(this._errorModal, false);
     this._errorModal.textContent = text;
   }
 
-  public closeErrorModal(): void {
+  public close(): void {
     toggleClassListHidden(this._errorModal, true);
     this._errorModal.textContent = 'Error';
   }

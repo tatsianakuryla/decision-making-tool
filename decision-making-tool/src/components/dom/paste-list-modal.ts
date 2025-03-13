@@ -7,6 +7,7 @@ import {
   errorModal,
   appContainer,
   pasteListModalDom,
+  scrollController,
 } from '../..';
 import { Button } from './button';
 
@@ -14,7 +15,7 @@ export class PasteListModal {
   private _pasteListModal: HTMLElement;
   private _pasteListText: HTMLElement;
   private _pasteListPlaceholder: HTMLElement;
-  private _isPasteModalOpen: boolean;
+  private _isOpen: boolean;
 
   constructor() {
     this._pasteListModal = createElementWithIdClass(
@@ -23,7 +24,7 @@ export class PasteListModal {
       ['app__paste-list-modal'],
     );
 
-    this._isPasteModalOpen = false;
+    this._isOpen = false;
 
     this._pasteListText = createElementWithIdClass(
       'textarea',
@@ -82,12 +83,12 @@ export class PasteListModal {
     });
 
     cancelButton.addEventListener('click', () => {
-      this.closePasteListModal();
+      this.close();
     });
 
     confirmButton.addEventListener('click', () => {
       this.getPasteListTextValue();
-      this.closePasteListModal();
+      this.close();
     });
   }
 
@@ -95,22 +96,24 @@ export class PasteListModal {
     return this._pasteListModal;
   }
 
-  public get isPasteModalOpen(): boolean {
-    return this._isPasteModalOpen;
+  public get isOpen(): boolean {
+    return this._isOpen;
   }
 
-  public openPasteListModal(): void {
+  public open(): void {
     appContainer.append(pasteListModalDom);
-    this._isPasteModalOpen = true;
+    this._isOpen = true;
+    scrollController.disabledScroll();
   }
 
-  public closePasteListModal(): void {
+  public close(): void {
     if (this._pasteListText instanceof HTMLTextAreaElement) {
       this._pasteListText.value = '';
     }
     appContainer.removeChild(pasteListModalDom);
     toggleClassListHidden(this._pasteListPlaceholder, false);
-    this._isPasteModalOpen = false;
+    this._isOpen = false;
+    scrollController.enabledScroll();
   }
 
   private getPasteListTextValue(): void {
@@ -152,8 +155,8 @@ export class PasteListModal {
       optionsList.renderOptionsList(options.options);
 
       if (!isAllOptionsAdded) {
-        errorModal.openErrorModal(
-          'Not all options were added. An option must be formatted strictly in the following way: title, weight: title, weight',
+        errorModal.open(
+          'Not to lose data the option must be formatted strictly in the following way: title, weight: title, weight',
         );
       }
     }

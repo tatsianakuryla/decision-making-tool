@@ -7,6 +7,7 @@ import { ErrorModal } from './components/dom/error-modal';
 import './styles/style.css';
 import { SaveOptions } from './components/link-to-save-options/link-to-save-options';
 import { LoadOptions } from './components/input-to-load-options/input-to-load-options';
+import { ScrollController } from './utils/scroll-controller/scroll-controller';
 
 export const appContainer = Container.createAppContainer();
 
@@ -16,10 +17,11 @@ const pasteListModal = new PasteListModal();
 export const errorModal = new ErrorModal();
 const saveOptions = new SaveOptions();
 const loadOptions = new LoadOptions();
+export const scrollController = new ScrollController();
 
 const optionsListDom = optionsList.optionsList;
 export const pasteListModalDom = pasteListModal.pasteListModal;
-const errorModalDom = errorModal.pasteErrorModal;
+const errorModalDom = errorModal.errorModal;
 
 const addOptionButton = Button.createButton('Add new option');
 const pasteOptionsButton = Button.createButton('Paste list');
@@ -54,7 +56,7 @@ addOptionButton.addEventListener('click', () => {
 });
 
 pasteOptionsButton.addEventListener('click', () => {
-  pasteListModal.openPasteListModal();
+  pasteListModal.open();
 });
 
 saveListToFileButton.addEventListener('click', () => {
@@ -67,16 +69,16 @@ loadListFromFileButton.addEventListener('click', () => {
 
 document.addEventListener('click', (event) => {
   if (
-    pasteListModal.isPasteModalOpen &&
+    pasteListModal.isOpen &&
     !event.composedPath().includes(pasteListModalDom) &&
     event.target !== pasteOptionsButton
   ) {
-    pasteListModal.closePasteListModal();
+    pasteListModal.close();
   }
 });
 
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && !pasteListModal.isPasteModalOpen) {
-    pasteListModal.closePasteListModal();
+  if (event.key === 'Escape' && !pasteListModal.isOpen) {
+    pasteListModal.close();
   }
 });
