@@ -5,9 +5,11 @@ import { Button } from './button';
 
 export class OptionsList {
   private _optionsList: HTMLElement;
+  private _optionItem: HTMLElement;
 
   constructor() {
     this._optionsList = createElementWithClass('ul', ['app__options-list']);
+    this._optionItem = createElementWithClass('li', ['app__option']);
   }
 
   public get optionsList(): HTMLElement {
@@ -22,25 +24,37 @@ export class OptionsList {
   }
 
   private createOptionsItem(element: Option): HTMLElement {
-    const option = createElementWithClass('li', ['app__option']);
-    option.dataset.id = element.id.toString();
+    this._optionItem.dataset.id = element.id.toString();
 
+    this.createOptionId(element);
+    this.createOptionTitle(element);
+    this.createOptionWeight(element);
+    this.createDeleteOptionButton(element);
+
+    return this._optionItem;
+  }
+
+  private createOptionId(element: Option): void {
     const optionId = createElementWithClass('div', ['app__option-id']);
     optionId.textContent = 'ID: #' + element.id.toString();
-    option.append(optionId);
+    this._optionItem.append(optionId);
+  }
 
+  private createOptionTitle(element: Option): void {
     const optionTitle = createElementWithClass('input', ['app__option-title']);
 
     if (optionTitle instanceof HTMLInputElement) {
       optionTitle.type = 'text';
       optionTitle.value = element.title;
       optionTitle.placeholder = 'Title';
-      option.append(optionTitle);
       optionTitle.addEventListener('change', () => {
         options.editOption({ id: element.id, title: optionTitle.value });
       });
     }
+    this._optionItem.append(optionTitle);
+  }
 
+  private createOptionWeight(element: Option): void {
     const optionWeight = createElementWithClass('input', [
       'app__option-weight',
     ]);
@@ -49,23 +63,19 @@ export class OptionsList {
       optionWeight.type = 'number';
       optionWeight.value = element.weight.toString();
       optionWeight.placeholder = 'Weight';
-      option.append(optionWeight);
       optionWeight.addEventListener('change', () => {
         options.editOption({ id: element.id, weight: optionWeight.value });
       });
     }
+    this._optionItem.append(optionWeight);
+  }
 
+  private createDeleteOptionButton(element: Option): void {
     const deleteOptionButton = Button.createButton('Delete option');
-    option.append(deleteOptionButton);
     deleteOptionButton.addEventListener('click', () => {
       options.removeOption(element.id);
       this.renderOptionsList(options.options);
     });
-
-    if (this.optionsList) {
-      this.optionsList.classList.contains('app__options-list');
-    }
-
-    return option;
+    this._optionItem.append(deleteOptionButton);
   }
 }

@@ -13,7 +13,7 @@ export default [
     },
   },
   {
-    ignores: ['commitlint.config.js', 'webpack.config.js'],
+    ignores: ['dist/', 'commitlint.config.js', 'webpack.config.js'],
   },
   js.configs.recommended,
   {

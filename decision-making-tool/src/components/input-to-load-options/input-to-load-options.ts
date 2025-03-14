@@ -5,6 +5,7 @@ import { type Option } from '../options/options';
 export class LoadOptions {
   private _inputToLoad: HTMLElement;
   private _readData: Option[] = [];
+  private _isValidOptionData: boolean;
 
   constructor() {
     this._inputToLoad = createElementWithClass('input', [
@@ -21,6 +22,7 @@ export class LoadOptions {
       'change',
       this.readLoadedFile.bind(this),
     );
+    this._isValidOptionData = true;
   }
 
   public get inputToLoad(): HTMLElement {
@@ -57,7 +59,6 @@ export class LoadOptions {
             errorModal.open('Invalid file format!');
             return;
           }
-
           if (this._readData.length === 0) {
             errorModal.open('Options were not found!');
             return;
@@ -79,9 +80,10 @@ export class LoadOptions {
   }
 
   private isValidOptionsData(data: unknown): data is Option[] {
-    return (
+    this._isValidOptionData =
       Array.isArray(data) &&
-      data.every((item) => typeof item === 'object' && item !== null)
-    );
+      data.every((item) => typeof item === 'object' && item !== null);
+
+    return this._isValidOptionData;
   }
 }
