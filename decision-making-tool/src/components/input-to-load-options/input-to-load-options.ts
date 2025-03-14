@@ -4,7 +4,7 @@ import { type Option } from '../options/options';
 
 export class LoadOptions {
   private _inputToLoad: HTMLElement;
-  private _readData: Option[];
+  private _readData: Option[] = [];
 
   constructor() {
     this._inputToLoad = createElementWithClass('input', [
@@ -17,11 +17,10 @@ export class LoadOptions {
       this._inputToLoad.accept = '.json';
     }
 
-    this._inputToLoad.addEventListener('change', (event) =>
-      this.readLoadedFile(event),
+    this._inputToLoad.addEventListener(
+      'change',
+      this.readLoadedFile.bind(this),
     );
-
-    this._readData = [];
   }
 
   public get inputToLoad(): HTMLElement {
@@ -43,35 +42,33 @@ export class LoadOptions {
       if (!target.files || target.files.length === 0) return;
 
       const file = target.files[0];
-      const reader = new FileReader();
+      const reader: FileReader = new FileReader();
 
       reader.onload = (): void => {
+        const result = reader.result;
+        if (typeof result !== 'string') {
+          errorModal.open('Invalid file content!');
+          return;
+        }
         try {
-          if (reader instanceof FileReader) {
-            const result = reader.result;
-            if (typeof result !== 'string') {
-              throw new Error('Invalid file content');
-            }
+          const parsedData = JSON.parse(result);
 
-            this._readData = JSON.parse(result);
-
-            if (!Array.isArray(this._readData)) {
-              errorModal.open('Invalid file format!');
-              throw new Error('Invalid file format');
-            }
-
-            if (this._readData.length === 0) {
-              errorModal.open('Options were not found!');
-            }
-
-            options.clearOptionsList();
-
-            this._readData.forEach((object: Option) => {
-              options.addOption(object);
-            });
-
-            optionsList.renderOptionsList(options.options);
+          if (!this.isValidOptionsData(parsedData)) {
+            errorModal.open('Invalid file format!');
+            return;
           }
+
+          if (this._readData.length === 0) {
+            errorModal.open('Options were not found!');
+            return;
+          }
+
+          this._readData = parsedData;
+          options.clearOptionsList();
+          this._readData.forEach((object: Option) => {
+            options.addOption(object);
+          });
+          optionsList.renderOptionsList(options.options);
         } catch {
           errorModal.open('Invalid file format!');
         }
@@ -79,5 +76,12 @@ export class LoadOptions {
 
       reader.readAsText(file);
     }
+  }
+
+  private isValidOptionsData(data: unknown): data is Option[] {
+    return (
+      Array.isArray(data) &&
+      data.every((item) => typeof item === 'object' && item !== null)
+    );
   }
 }
