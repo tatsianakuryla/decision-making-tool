@@ -17,11 +17,11 @@ export class OptionsList {
   public renderOptionsList(options: Option[]): void {
     this.optionsList.replaceChildren();
     options.forEach((option) =>
-      this.optionsList.append(this.createOptionsItem(option)),
+      this.optionsList.append(this._createOptionsItem(option)),
     );
   }
 
-  private createOptionsItem(element: Option): HTMLElement {
+  private _createOptionsItem(element: Option): HTMLElement {
     const optionItem = createElementWithClass('li', ['app__option']);
     optionItem.dataset.id = element.id.toString();
 
@@ -56,12 +56,12 @@ export class OptionsList {
     }
 
     optionItem.append(optionId, optionTitle, optionWeight);
-    this.createDeleteOptionButton(optionItem, element);
+    this._createDeleteOptionButton(optionItem, element);
 
     return optionItem;
   }
 
-  private createDeleteOptionButton(
+  private _createDeleteOptionButton(
     optionItem: HTMLElement,
     element: Option,
   ): void {

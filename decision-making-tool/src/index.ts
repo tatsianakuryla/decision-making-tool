@@ -63,3 +63,7 @@ saveListToFileButton.addEventListener('click', () => {
 loadListFromFileButton.addEventListener('click', () => {
   loadOptions.loadOptions();
 });
+
+startButton.addEventListener('click', () => {
+  options.validation();
+});

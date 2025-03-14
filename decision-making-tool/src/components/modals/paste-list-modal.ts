@@ -21,15 +21,15 @@ export class PasteListModal {
     this._pasteListPlaceholder = createElementWithClass('div', [
       'app__paste-list-placeholder',
     ]);
-    this.createPlaceholderContent();
+    this._createPlaceholderContent();
 
     this._pasteListModal.append(
       this._pasteListText,
       this._pasteListPlaceholder,
     );
     document.body.appendChild(this._pasteListModal);
-    this.addModalEventListeners();
-    this.createModalButtons();
+    this._addModalEventListeners();
+    this._createModalButtons();
   }
 
   public get modal(): HTMLElement {
@@ -62,7 +62,7 @@ export class PasteListModal {
     }
   }
 
-  private getPasteListTextValue(): void {
+  private _getPasteListTextValue(): void {
     if (this._pasteListText instanceof HTMLTextAreaElement) {
       if (this._pasteListText.value.trim().length > 0) {
         let isAllOptionsAdded = true;
@@ -104,7 +104,7 @@ export class PasteListModal {
     }
   }
 
-  private createModalButtons(): void {
+  private _createModalButtons(): void {
     const confirmButton = Button.createButton('Confirm');
     const cancelButton = Button.createButton('Cancel');
 
@@ -115,12 +115,12 @@ export class PasteListModal {
     });
 
     confirmButton.addEventListener('click', () => {
-      this.getPasteListTextValue();
+      this._getPasteListTextValue();
       this.close();
     });
   }
 
-  private createPlaceholderContent(): void {
+  private _createPlaceholderContent(): void {
     const pasteListInfo = createParagraph(
       'app__paste-list-info',
       'Paste or enter a list of new options in a CSV-like format:',
@@ -147,7 +147,7 @@ export class PasteListModal {
     );
   }
 
-  private addModalEventListeners(): void {
+  private _addModalEventListeners(): void {
     this._pasteListModal.addEventListener('cancel', (event) => {
       event.preventDefault();
       this.close();

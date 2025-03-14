@@ -51,5 +51,10 @@ export class Options {
     LocalStorage.saveToLocalStorage('options', this._options);
   }
 
-  // public optionValidation(option);
+  public validation() {
+    return this._options.reduce((acc: number, option): number => {
+      option.title.length > 0 && +option.weight > 0 ? acc++ : acc;
+      return acc;
+    }, 0);
+  }
 }

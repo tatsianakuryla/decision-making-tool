@@ -20,7 +20,7 @@ export class LoadOptions {
 
     this._inputToLoad.addEventListener(
       'change',
-      this.readLoadedFile.bind(this),
+      this._readLoadedFile.bind(this),
     );
     this._isValidOptionData = true;
   }
@@ -37,7 +37,7 @@ export class LoadOptions {
     }
   }
 
-  private readLoadedFile(event: Event): void {
+  private _readLoadedFile(event: Event): void {
     if (event.target instanceof HTMLInputElement) {
       const target = event.target;
 
@@ -55,7 +55,7 @@ export class LoadOptions {
         try {
           const parsedData = JSON.parse(result);
 
-          if (!this.isValidOptionsData(parsedData)) {
+          if (!this._isValidOptionsData(parsedData)) {
             errorBlock.open('Invalid file format!');
             return;
           }
@@ -79,7 +79,7 @@ export class LoadOptions {
     }
   }
 
-  private isValidOptionsData(data: unknown): data is Option[] {
+  private _isValidOptionsData(data: unknown): data is Option[] {
     this._isValidOptionData =
       Array.isArray(data) &&
       data.every((item) => typeof item === 'object' && item !== null);
