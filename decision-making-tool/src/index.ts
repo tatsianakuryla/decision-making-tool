@@ -7,6 +7,7 @@ import { ErrorBlock } from './components/dom/error-block';
 import './styles/style.css';
 import { SaveOptions } from './components/link-to-save-options/link-to-save-options';
 import { LoadOptions } from './components/input-to-load-options/input-to-load-options';
+import { AddValidOptionModal } from './components/modals/add-valid-option-modal';
 
 export const appContainer = Container.createAppContainer();
 
@@ -16,6 +17,7 @@ const pasteListModal = new PasteListModal();
 export const errorBlock = new ErrorBlock();
 const saveOptions = new SaveOptions();
 const loadOptions = new LoadOptions();
+const addValidOptionModal = new AddValidOptionModal();
 
 const optionsListDom = optionsList.optionsList;
 const errorBlockDom = errorBlock.errorBlock;
@@ -65,5 +67,7 @@ loadListFromFileButton.addEventListener('click', () => {
 });
 
 startButton.addEventListener('click', () => {
-  options.validation();
+  if (options.validOptionsQuantity() < 1) {
+    addValidOptionModal.open();
+  }
 });

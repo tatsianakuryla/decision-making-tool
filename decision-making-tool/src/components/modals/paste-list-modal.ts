@@ -3,63 +3,39 @@ import { createParagraph, toggleClassListHidden } from '../../utils/helpers';
 import { type Option } from '../options/options';
 import { options, optionsList, errorBlock } from '../..';
 import { Button } from '../dom/button';
+import { BaseModal } from './base-modal';
 
-export class PasteListModal {
-  private _pasteListModal: HTMLElement;
+export class PasteListModal extends BaseModal {
   private _pasteListText: HTMLElement;
   private _pasteListPlaceholder: HTMLElement;
-  private _isOpen: boolean;
 
   constructor() {
-    this._pasteListModal = createElementWithClass('dialog', [
-      'app__paste-list-modal',
-    ]);
-    this._isOpen = false;
+    super('app__paste-list-modal');
+
     this._pasteListText = createElementWithClass('textarea', [
       'app__paste-list-textarea',
     ]);
+
     this._pasteListPlaceholder = createElementWithClass('div', [
       'app__paste-list-placeholder',
     ]);
     this._createPlaceholderContent();
 
-    this._pasteListModal.append(
+    this._modalContainer.append(
       this._pasteListText,
       this._pasteListPlaceholder,
     );
-    document.body.appendChild(this._pasteListModal);
-    this._addModalEventListeners();
-    this._createModalButtons();
+
+    this._addTextEventListener();
+    this._createConfirmButton();
   }
 
-  public get modal(): HTMLElement {
-    return this._pasteListModal;
-  }
-
-  public get isOpen(): boolean {
-    return this._isOpen;
-  }
-
-  public open(): void {
-    if (!this._isOpen) {
-      if (this._pasteListModal instanceof HTMLDialogElement) {
-        document.body.prepend(this._pasteListModal);
-        this._pasteListModal.showModal();
-        this._isOpen = true;
-      }
-    }
-  }
-
-  public close(): void {
+  public override close(): void {
     if (this._pasteListText instanceof HTMLTextAreaElement) {
       this._pasteListText.value = '';
     }
     toggleClassListHidden(this._pasteListPlaceholder, false);
-    if (this._pasteListModal instanceof HTMLDialogElement && this._isOpen) {
-      this._pasteListModal.close();
-      this._pasteListModal.remove();
-      this._isOpen = false;
-    }
+    super.close();
   }
 
   private _getPasteListTextValue(): void {
@@ -104,16 +80,9 @@ export class PasteListModal {
     }
   }
 
-  private _createModalButtons(): void {
+  private _createConfirmButton(): void {
     const confirmButton = Button.createButton('Confirm');
-    const cancelButton = Button.createButton('Cancel');
-
-    this._pasteListModal.append(confirmButton, cancelButton);
-
-    cancelButton.addEventListener('click', () => {
-      this.close();
-    });
-
+    this._modalContainer.append(confirmButton);
     confirmButton.addEventListener('click', () => {
       this._getPasteListTextValue();
       this.close();
@@ -147,19 +116,7 @@ export class PasteListModal {
     );
   }
 
-  private _addModalEventListeners(): void {
-    this._pasteListModal.addEventListener('cancel', (event) => {
-      event.preventDefault();
-      this.close();
-      this._isOpen = false;
-    });
-
-    this._pasteListModal.addEventListener('click', (event) => {
-      if (event.target === this._pasteListModal) {
-        this.close();
-      }
-    });
-
+  private _addTextEventListener(): void {
     this._pasteListText.addEventListener('input', () => {
       if (this._pasteListText instanceof HTMLTextAreaElement) {
         toggleClassListHidden(
