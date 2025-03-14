@@ -50,4 +50,6 @@ export class Options {
     this._options = [];
     LocalStorage.saveToLocalStorage('options', this._options);
   }
+
+  // public optionValidation(option);
 }

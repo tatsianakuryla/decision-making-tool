@@ -33,7 +33,7 @@ export class OptionsList {
       optionTitle.type = 'text';
       optionTitle.value = element.title;
       optionTitle.placeholder = 'Title';
-      optionTitle.addEventListener('change', () => {
+      optionTitle.addEventListener('input', () => {
         options.editOption({ id: element.id, title: optionTitle.value });
       });
     }
@@ -45,8 +45,13 @@ export class OptionsList {
       optionWeight.type = 'number';
       optionWeight.value = element.weight.toString();
       optionWeight.placeholder = 'Weight';
-      optionWeight.addEventListener('change', () => {
+      optionWeight.addEventListener('input', () => {
         options.editOption({ id: element.id, weight: optionWeight.value });
+      });
+      optionWeight.addEventListener('keydown', (event) => {
+        if (event.key === '.' || event.key === ',') {
+          event.preventDefault();
+        }
       });
     }
 
