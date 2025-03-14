@@ -2,26 +2,23 @@ import { Button } from './components/dom/button';
 import { Container } from './components/dom/container';
 import { OptionsList } from './components/dom/options-list';
 import { Options } from './components/options/options';
-import { PasteListModal } from './components/dom/paste-list-modal';
-import { ErrorModal } from './components/dom/error-modal';
+import { PasteListModal } from './components/modals/paste-list-modal';
+import { ErrorBlock } from './components/dom/error-block';
 import './styles/style.css';
 import { SaveOptions } from './components/link-to-save-options/link-to-save-options';
 import { LoadOptions } from './components/input-to-load-options/input-to-load-options';
-import { ScrollController } from './utils/scroll-controller/scroll-controller';
 
 export const appContainer = Container.createAppContainer();
 
 export const options = new Options();
 export const optionsList = new OptionsList();
 const pasteListModal = new PasteListModal();
-export const errorModal = new ErrorModal();
+export const errorBlock = new ErrorBlock();
 const saveOptions = new SaveOptions();
 const loadOptions = new LoadOptions();
-export const scrollController = new ScrollController();
 
 const optionsListDom = optionsList.optionsList;
-export const pasteListModalDom = pasteListModal.pasteListModal;
-const errorModalDom = errorModal.errorModal;
+const errorBlockDom = errorBlock.errorBlock;
 
 const addOptionButton = Button.createButton('Add new option');
 const pasteOptionsButton = Button.createButton('Paste list');
@@ -39,7 +36,7 @@ appContainer.append(
   saveListToFileButton,
   loadListFromFileButton,
   startButton,
-  errorModalDom,
+  errorBlockDom,
 );
 
 document.body.append(appContainer);
@@ -65,20 +62,4 @@ saveListToFileButton.addEventListener('click', () => {
 
 loadListFromFileButton.addEventListener('click', () => {
   loadOptions.loadOptions();
-});
-
-document.addEventListener('click', (event) => {
-  if (
-    pasteListModal.isOpen &&
-    !event.composedPath().includes(pasteListModalDom) &&
-    event.target !== pasteOptionsButton
-  ) {
-    pasteListModal.close();
-  }
-});
-
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && !pasteListModal.isOpen) {
-    pasteListModal.close();
-  }
 });

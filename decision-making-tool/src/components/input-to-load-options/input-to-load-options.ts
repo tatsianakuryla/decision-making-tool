@@ -1,4 +1,4 @@
-import { errorModal, options, optionsList } from '../..';
+import { errorBlock, options, optionsList } from '../..';
 import { createElementWithClass } from '../../utils/helpers';
 import { type Option } from '../options/options';
 
@@ -49,18 +49,18 @@ export class LoadOptions {
       reader.onload = (): void => {
         const result = reader.result;
         if (typeof result !== 'string') {
-          errorModal.open('Invalid file content!');
+          errorBlock.open('Invalid file content!');
           return;
         }
         try {
           const parsedData = JSON.parse(result);
 
           if (!this.isValidOptionsData(parsedData)) {
-            errorModal.open('Invalid file format!');
+            errorBlock.open('Invalid file format!');
             return;
           }
           if (this._readData.length === 0) {
-            errorModal.open('Options were not found!');
+            errorBlock.open('Options were not found!');
             return;
           }
 
@@ -71,7 +71,7 @@ export class LoadOptions {
           });
           optionsList.renderOptionsList(options.options);
         } catch {
-          errorModal.open('Invalid file format!');
+          errorBlock.open('Invalid file format!');
         }
       };
 
