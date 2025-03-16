@@ -26,6 +26,5 @@ export class ErrorBlock {
 
   private _close(): void {
     this._errorBlock.classList.remove('show');
-    this._errorBlock.textContent = 'Error';
   }
 }

@@ -1,5 +1,11 @@
+import { LocalStorage } from '../Local-storage/local-storage';
+
 export class IdGenerator {
-  private _idCounter: number = 0;
+  private _idCounter: number;
+
+  constructor() {
+    this._idCounter = LocalStorage.getId('idGenerator') ?? 0;
+  }
 
   public get getIdCounter(): number {
     return this._idCounter;
@@ -7,9 +13,15 @@ export class IdGenerator {
 
   public idCounterReset(): void {
     this._idCounter = 0;
+    this._saveToLocalStorage();
   }
 
   public idCounterIncrease(): void {
-    this._idCounter++;
+    this._idCounter += 1;
+    this._saveToLocalStorage();
+  }
+
+  private _saveToLocalStorage(): void {
+    LocalStorage.saveId('idGenerator', this._idCounter);
   }
 }

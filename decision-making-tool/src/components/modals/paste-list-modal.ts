@@ -1,6 +1,6 @@
 import { createElementWithClass } from '../../utils/helpers';
-import { type Option } from '../options/options';
-import { options, optionsList, errorBlock } from '../..';
+import { type Option } from '../OptionsStore/options-store';
+import { optionsStore, optionsRenderer, errorBlock } from '../..';
 import { Button } from '../dom/Buttons/button';
 import { BaseModal } from './base-modal';
 
@@ -65,8 +65,10 @@ Every empty space counts`;
             isAllOptionsAdded = false;
           }
         });
-        optionsArray.forEach((option) => options.addOption(option));
-        optionsList.renderOptionsList(options.options);
+        optionsArray.forEach((option) => {
+          optionsStore.addOption(option);
+          optionsRenderer.renderOption(option);
+        });
         if (!isAllOptionsAdded) {
           errorBlock.open(
             'Not to lose data the option must be formatted strictly in the following way: title, weight: title, weight',

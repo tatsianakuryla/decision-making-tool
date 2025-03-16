@@ -1,6 +1,6 @@
-import { errorBlock, options, optionsList } from '../..';
+import { errorBlock, optionsStore, optionsRenderer } from '../..';
 import { createElementWithClass } from '../../utils/helpers';
-import { type Option } from '../options/options';
+import { type Option } from '../OptionsStore/options-store';
 
 export class LoadOptions {
   private _inputToLoad: HTMLElement;
@@ -59,17 +59,17 @@ export class LoadOptions {
             errorBlock.open('Invalid file format!');
             return;
           }
-          if (this._readData.length === 0) {
+          if (parsedData.length === 0) {
             errorBlock.open('Options were not found!');
             return;
           }
 
           this._readData = parsedData;
-          options.clearOptionsList();
+          optionsStore.clear();
           this._readData.forEach((object: Option) => {
-            options.addOption(object);
+            optionsStore.addOption(object);
           });
-          optionsList.renderOptionsList(options.options);
+          optionsRenderer.renderOptionsList(optionsStore.getOptionsArray);
         } catch {
           errorBlock.open('Invalid file format!');
         }

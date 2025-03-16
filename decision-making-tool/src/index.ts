@@ -1,29 +1,25 @@
-import { Container } from './components/dom/Container/container';
-import { OptionsList } from './components/dom/Options-list/options-list';
-import { Options } from './components/options/options';
+import { ContainerFactory } from './components/dom/Container-factory/container-factory';
+import { OptionsRenderer } from './components/dom/Options-renderer/options-renderer';
+import { OptionsStore } from './components/OptionsStore/options-store';
 import { ErrorBlock } from './components/dom/Error-block/error-block';
 import './styles/modern-normalize.css';
 import './styles/style.css';
-import { ButtonContainer } from './components/dom/Buttons/buttons-container';
-import { IdGenerator } from './components/id-generator/id-generator';
+import { ButtonsFactory } from './components/dom/Buttons/buttons-factory';
+import { IdGenerator } from './components/Id-generator/id-generator';
 
-export const appContainer = Container.createAppContainer();
+export const appContainer = ContainerFactory.createAppContainer();
 
-export const options = new Options();
-export const optionsList = new OptionsList();
+export const optionsStore = new OptionsStore();
+export const optionsRenderer = new OptionsRenderer();
 export const errorBlock = new ErrorBlock();
 export const idGenerator = new IdGenerator();
 
-const optionsListDom = optionsList.optionsList;
-const errorBlockDom = errorBlock.errorBlock;
-const buttonContainer = ButtonContainer.createButtonsContainer();
-
 appContainer.append(
-  Container.createAppTitle(),
-  optionsListDom,
-  buttonContainer,
-  errorBlockDom,
+  optionsRenderer.optionsList,
+  ButtonsFactory.getButtons(),
+  errorBlock.errorBlock,
 );
 
 document.body.append(appContainer);
-optionsList.renderOptionsList(options.options);
+optionsStore.initialize();
+optionsRenderer.renderOptionsList(optionsStore.getOptionsArray);

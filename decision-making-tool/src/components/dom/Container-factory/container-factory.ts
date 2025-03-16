@@ -1,9 +1,11 @@
 import { createElementWithClass } from '../../../utils/helpers';
-import './container.css';
+import './container-factory.css';
 
-export class Container {
+export class ContainerFactory {
   public static createAppContainer(): HTMLElement {
-    return createElementWithClass('div', ['app', 'flex']);
+    const container = createElementWithClass('div', ['app', 'flex']);
+    container.append(this.createAppTitle());
+    return container;
   }
 
   public static createAppTitle(): HTMLElement {
