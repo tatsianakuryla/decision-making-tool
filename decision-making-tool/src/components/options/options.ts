@@ -1,7 +1,8 @@
 import { LocalStorage } from '../local-storage/local-storage';
+import { idGenerator } from '../..';
 
 export type Option = {
-  id: number;
+  id: string;
   title: string;
   weight: string;
 };
@@ -19,22 +20,18 @@ export class Options {
     return this._options;
   }
 
-  public addOption(option?: Option): void {
-    const defaultOption: Option = { id: 0, title: '', weight: '' };
+  public addEmptyOption(): void {
+    this.addOption({ id: '', title: '', weight: '' });
+  }
 
-    const newOption = option ? { ...defaultOption, ...option } : defaultOption;
-
-    const maxId = this._options.reduce(
-      (accum, current) => Math.max(accum, current.id),
-      0,
-    );
-
-    newOption.id = newOption.id === 0 ? maxId + 1 : newOption.id;
-    this._options.push(newOption);
+  public addOption(option: Option): void {
+    idGenerator.idCounterIncrease();
+    option.id = '#' + idGenerator.getIdCounter;
+    this._options.push(option);
     LocalStorage.saveToLocalStorage('options', this._options);
   }
 
-  public removeOption(id: number): void {
+  public removeOption(id: string): void {
     this._options = this._options.filter((option) => option.id !== id);
     LocalStorage.saveToLocalStorage('options', this._options);
   }
@@ -48,6 +45,7 @@ export class Options {
 
   public clearOptionsList(): void {
     this._options = [];
+    idGenerator.idCounterReset();
     LocalStorage.saveToLocalStorage('options', this._options);
   }
 

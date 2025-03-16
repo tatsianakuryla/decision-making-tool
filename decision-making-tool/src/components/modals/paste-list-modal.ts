@@ -57,7 +57,7 @@ Every empty space counts`;
 
           if (regex.test(title)) {
             optionsArray.push({
-              id: 0,
+              id: '',
               title: title,
               weight: weight.toString(),
             });

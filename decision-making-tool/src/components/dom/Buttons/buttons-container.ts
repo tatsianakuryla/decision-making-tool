@@ -41,7 +41,7 @@ export class ButtonContainer {
     });
 
     addOptionButton.addEventListener('click', () => {
-      options.addOption();
+      options.addEmptyOption();
       optionsList.renderOptionsList(options.options);
     });
 

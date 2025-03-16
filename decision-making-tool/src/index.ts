@@ -5,12 +5,14 @@ import { ErrorBlock } from './components/dom/Error-block/error-block';
 import './styles/modern-normalize.css';
 import './styles/style.css';
 import { ButtonContainer } from './components/dom/Buttons/buttons-container';
+import { IdGenerator } from './components/id-generator/id-generator';
 
 export const appContainer = Container.createAppContainer();
 
 export const options = new Options();
 export const optionsList = new OptionsList();
 export const errorBlock = new ErrorBlock();
+export const idGenerator = new IdGenerator();
 
 const optionsListDom = optionsList.optionsList;
 const errorBlockDom = errorBlock.errorBlock;

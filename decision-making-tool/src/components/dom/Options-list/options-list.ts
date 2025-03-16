@@ -27,10 +27,10 @@ export class OptionsList {
 
   private _createOptionsItem(element: Option): HTMLElement {
     const optionItem = createElementWithClass('li', ['app__option', 'flex']);
-    optionItem.dataset.id = element.id.toString();
+    optionItem.dataset.id = element.id;
 
     const optionId = createElementWithClass('div', ['app__option-id']);
-    optionId.textContent = 'ID: #' + element.id.toString();
+    optionId.textContent = 'ID: ' + element.id;
 
     const optionTitle = createElementWithClass('input', ['app__option-title']);
     if (optionTitle instanceof HTMLInputElement) {
