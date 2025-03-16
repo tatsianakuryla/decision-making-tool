@@ -31,6 +31,7 @@ export default [
         HTMLElement: 'readonly',
         HTMLInputElement: 'readonly',
         HTMLTextAreaElement: 'readonly',
+        setTimeout: 'readonly',
       },
     },
     plugins: {

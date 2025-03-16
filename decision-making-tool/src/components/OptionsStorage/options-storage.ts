@@ -7,7 +7,7 @@ export type Option = {
   weight: string;
 };
 
-export class OptionsStore {
+export class OptionsStorage {
   private _optionsArray: Option[];
 
   constructor() {
@@ -18,13 +18,22 @@ export class OptionsStore {
     return this._optionsArray;
   }
 
-  public addEmptyOption(): void {
-    this.addOption({ id: '', title: '', weight: '' });
+  public addEmptyOption(): Option {
+    return this.createOption('', '');
+  }
+
+  public createOption(title: string, weight: string): Option {
+    idGenerator.idCounterIncrease();
+    const option = {
+      id: '#' + idGenerator.getIdCounter,
+      title: title,
+      weight: weight,
+    };
+    this.addOption(option);
+    return option;
   }
 
   public addOption(option: Option): void {
-    idGenerator.idCounterIncrease();
-    option.id = '#' + idGenerator.getIdCounter;
     this._optionsArray.push(option);
     this._saveToLocalStorage();
   }
@@ -61,6 +70,7 @@ export class OptionsStore {
 
   public initialize(): void {
     if (this._optionsArray.length < 1) {
+      idGenerator.idCounterReset();
       this.addEmptyOption();
     }
   }

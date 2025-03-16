@@ -1,4 +1,4 @@
-import { type Option } from '../OptionsStore/options-store';
+import { type Option } from '../OptionsStorage/options-storage';
 
 export class LocalStorage {
   public static saveData(key: string, value: Option[]): void {

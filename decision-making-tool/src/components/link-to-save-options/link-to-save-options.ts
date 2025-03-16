@@ -1,5 +1,5 @@
 import { createElementWithClass } from '../../utils/helpers';
-import { optionsStore } from '../..';
+import { idGenerator, optionsStorage } from '../..';
 
 export class SaveOptions {
   private _linkToSave: HTMLElement;
@@ -16,7 +16,14 @@ export class SaveOptions {
 
   public saveOptions(): void {
     document.body.append(this._linkToSave);
-    const dataToSave = JSON.stringify(optionsStore.getOptionsArray, null, 2);
+    const dataToSave = JSON.stringify(
+      {
+        options: optionsStorage.getOptionsArray,
+        lastId: idGenerator.getIdCounter,
+      },
+      null,
+      2,
+    );
     if (this._linkToSave instanceof HTMLAnchorElement) {
       this._linkToSave.href = URL.createObjectURL(
         new Blob([dataToSave], { type: 'application/json' }),

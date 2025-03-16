@@ -11,6 +11,10 @@ export class IdGenerator {
     return this._idCounter;
   }
 
+  public setIdCouter(value: number): void {
+    this._idCounter = value;
+  }
+
   public idCounterReset(): void {
     this._idCounter = 0;
     this._saveToLocalStorage();

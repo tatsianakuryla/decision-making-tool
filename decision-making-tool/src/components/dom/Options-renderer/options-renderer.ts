@@ -1,5 +1,5 @@
 import { createElementWithClass } from '../../../utils/helpers';
-import { type Option } from '../../OptionsStore/options-store';
+import { type Option } from '../../OptionsStorage/options-storage';
 import { OptionsItemFactory } from './options-item-factory';
 import './options-renderer.css';
 

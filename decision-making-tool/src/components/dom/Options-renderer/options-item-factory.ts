@@ -1,6 +1,6 @@
-import { optionsRenderer, optionsStore } from '../../..';
+import { optionsRenderer, optionsStorage } from '../../..';
 import { createElementWithClass } from '../../../utils/helpers';
-import { type Option } from '../../OptionsStore/options-store';
+import { type Option } from '../../OptionsStorage/options-storage';
 import { Button } from '../Buttons/button';
 
 export class OptionsItemFactory {
@@ -17,7 +17,10 @@ export class OptionsItemFactory {
       optionTitle.value = element.title;
       optionTitle.placeholder = 'Title';
       optionTitle.addEventListener('input', () => {
-        optionsStore.updateOption({ id: element.id, title: optionTitle.value });
+        optionsStorage.updateOption({
+          id: element.id,
+          title: optionTitle.value,
+        });
       });
     }
 
@@ -26,10 +29,10 @@ export class OptionsItemFactory {
     ]);
     if (optionWeight instanceof HTMLInputElement) {
       optionWeight.type = 'number';
-      optionWeight.value = element.weight.toString();
+      optionWeight.value = element.weight;
       optionWeight.placeholder = 'Weight';
       optionWeight.addEventListener('input', () => {
-        optionsStore.updateOption({
+        optionsStorage.updateOption({
           id: element.id,
           weight: optionWeight.value,
         });
@@ -54,8 +57,8 @@ export class OptionsItemFactory {
     const deleteOptionButton = Button.createButton('Delete');
     optionItem.append(deleteOptionButton);
     deleteOptionButton.addEventListener('click', () => {
-      optionsStore.removeOption(element.id);
-      optionsRenderer.renderOptionsList(optionsStore.getOptionsArray);
+      optionsStorage.removeOption(element.id);
+      optionsRenderer.renderOptionsList(optionsStorage.getOptionsArray);
     });
   }
 }

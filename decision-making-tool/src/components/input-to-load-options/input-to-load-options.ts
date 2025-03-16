@@ -1,8 +1,13 @@
-import { errorBlock, optionsStore, optionsRenderer } from '../..';
+import {
+  errorBlock,
+  optionsStorage,
+  optionsRenderer,
+  idGenerator,
+} from '../..';
 import { createElementWithClass } from '../../utils/helpers';
-import { type Option } from '../OptionsStore/options-store';
+import { type Option } from '../OptionsStorage/options-storage';
 
-export class LoadOptions {
+export class OptionsLoader {
   private _inputToLoad: HTMLElement;
   private _readData: Option[] = [];
   private _isValidOptionData: boolean;
@@ -53,23 +58,25 @@ export class LoadOptions {
           return;
         }
         try {
-          const parsedData = JSON.parse(result);
+          const parsedOptions = JSON.parse(result)?.options;
+          const parsedId = JSON.parse(result)?.lastId;
 
-          if (!this._isValidOptionsData(parsedData)) {
+          if (!this._isValidOptionsData(parsedOptions)) {
             errorBlock.open('Invalid file format!');
             return;
           }
-          if (parsedData.length === 0) {
+          if (parsedOptions.length === 0) {
             errorBlock.open('Options were not found!');
             return;
           }
 
-          this._readData = parsedData;
-          optionsStore.clear();
+          this._readData = parsedOptions;
+          optionsStorage.clear();
+          idGenerator.setIdCouter(parsedId);
           this._readData.forEach((object: Option) => {
-            optionsStore.addOption(object);
+            optionsStorage.addOption(object);
           });
-          optionsRenderer.renderOptionsList(optionsStore.getOptionsArray);
+          optionsRenderer.renderOptionsList(optionsStorage.getOptionsArray);
         } catch {
           errorBlock.open('Invalid file format!');
         }

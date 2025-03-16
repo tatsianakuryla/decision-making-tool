@@ -1,6 +1,5 @@
 import { createElementWithClass } from '../../utils/helpers';
-import { type Option } from '../OptionsStore/options-store';
-import { optionsStore, optionsRenderer, errorBlock } from '../..';
+import { optionsStorage, optionsRenderer, errorBlock } from '../..';
 import { Button } from '../dom/Buttons/button';
 import { BaseModal } from './base-modal';
 
@@ -37,41 +36,33 @@ Every empty space counts`;
   private _getPasteListTextValue(): void {
     if (this._pasteListText instanceof HTMLTextAreaElement) {
       if (this._pasteListText.value.trim().length > 0) {
-        let isAllOptionsAdded = true;
+        let wrongDataFormatError = false;
         const strings = this._pasteListText.value.split('\n');
-        const optionsArray: Option[] = [];
 
         strings.forEach((option) => {
           const lastCommaIndex = option.lastIndexOf(',');
           if (!option.includes(',')) {
-            isAllOptionsAdded = false;
+            wrongDataFormatError = true;
             return;
           }
 
-          const preWeight = Number.parseInt(
-            option.slice(lastCommaIndex + 1).trim(),
-          );
-          const weight = Number.isFinite(preWeight) ? preWeight : '';
           const title = option.slice(0, lastCommaIndex).trim();
           const regex = /[^\s.,!?;:(){}[\]<>/"'*-]/;
-
-          if (regex.test(title)) {
-            optionsArray.push({
-              id: '',
-              title: title,
-              weight: weight.toString(),
-            });
-          } else {
-            isAllOptionsAdded = false;
+          if (!regex.test(title)) {
+            wrongDataFormatError = true;
+            return;
           }
+
+          const preWeight = option.slice(lastCommaIndex + 1).trim();
+          const weight = Number.isFinite(+preWeight) ? preWeight : '';
+
+          optionsRenderer.renderOption(
+            optionsStorage.createOption(title, weight.toString()),
+          );
         });
-        optionsArray.forEach((option) => {
-          optionsStore.addOption(option);
-          optionsRenderer.renderOption(option);
-        });
-        if (!isAllOptionsAdded) {
+        if (wrongDataFormatError) {
           errorBlock.open(
-            'Not to lose data the option must be formatted strictly in the following way: title, weight: title, weight',
+            'Not to lose data the option must be formatted strictly in the following way: title, weight',
           );
         }
       }

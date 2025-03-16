@@ -1,6 +1,6 @@
-import { optionsStore, optionsRenderer } from '../../..';
+import { optionsStorage, optionsRenderer } from '../../..';
 import { createElementWithClass } from '../../../utils/helpers';
-import { LoadOptions } from '../../input-to-load-options/input-to-load-options';
+import { OptionsLoader } from '../../input-to-load-options/input-to-load-options';
 import { SaveOptions } from '../../link-to-save-options/link-to-save-options';
 import { AddValidOptionModal } from '../../Modals/add-valid-option-modal';
 import { PasteListModal } from '../../Modals/paste-list-modal';
@@ -32,19 +32,16 @@ export class ButtonsFactory {
 
     const pasteListModal = new PasteListModal();
     const saveOptions = new SaveOptions();
-    const loadOptions = new LoadOptions();
+    const loadOptions = new OptionsLoader();
     const addValidOptionModal = new AddValidOptionModal();
 
     clearListButton.addEventListener('click', () => {
-      optionsStore.clear();
-      optionsRenderer.renderOptionsList(optionsStore.getOptionsArray);
+      optionsStorage.clear();
+      optionsRenderer.renderOptionsList(optionsStorage.getOptionsArray);
     });
 
     addOptionButton.addEventListener('click', () => {
-      optionsStore.addEmptyOption();
-      optionsRenderer.renderOption(
-        optionsStore.getOptionsArray[optionsStore.getOptionsArray.length - 1],
-      );
+      optionsRenderer.renderOption(optionsStorage.addEmptyOption());
     });
 
     pasteOptionsButton.addEventListener('click', () => {
@@ -60,7 +57,7 @@ export class ButtonsFactory {
     });
 
     startButton.addEventListener('click', () => {
-      if (optionsStore.countValidOptions() < 1) {
+      if (optionsStorage.countValidOptions() < 1) {
         addValidOptionModal.open();
       }
     });
