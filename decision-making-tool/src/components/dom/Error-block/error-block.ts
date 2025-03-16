@@ -1,17 +1,14 @@
 import {
   createElementWithClass,
   createParagraph,
-  toggleClassListHidden,
-} from '../../utils/helpers';
+} from '../../../utils/helpers';
+import './error-block.css';
 
 export class ErrorBlock {
   private _errorBlock: HTMLElement;
 
   constructor() {
-    this._errorBlock = createElementWithClass('div', [
-      'app__error-modal',
-      'hidden',
-    ]);
+    this._errorBlock = createElementWithClass('div', ['app__error-modal']);
     this._errorBlock.append(createParagraph('app__error-text', ''));
   }
 
@@ -20,12 +17,15 @@ export class ErrorBlock {
   }
 
   public open(text: string): void {
-    toggleClassListHidden(this._errorBlock, false);
+    this._errorBlock.classList.add('show');
+    setTimeout(() => {
+      this._close();
+    }, 3000);
     this._errorBlock.textContent = text;
   }
 
-  public close(): void {
-    toggleClassListHidden(this._errorBlock, true);
+  private _close(): void {
+    this._errorBlock.classList.remove('show');
     this._errorBlock.textContent = 'Error';
   }
 }

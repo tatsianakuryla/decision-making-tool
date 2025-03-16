@@ -1,0 +1,72 @@
+.app__options-list {
+  flex-direction: column;
+  gap: var(--gap);
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.app__option {
+  gap: var(--gap);
+  width: 100%;
+}
+
+.app__option-title,
+.app__option-weight,
+.app__option-id,
+.app__button_delete {
+  --offsets: 3;
+
+  flex-grow: 1;
+
+  padding: 10px;
+  border: 1px solid var(--elements-border-color);
+  border-radius: var(--inputs-border-radius);
+
+  background-color: var(--elements-background);
+  box-shadow: var(--box-shadow);
+}
+
+.app__option-weight {
+  flex-basis: calc((100% - 60px - var(--gap) * var(--offsets)) * 0.1);
+  max-width: 100px;
+}
+
+.app__option-id {
+  flex-basis: calc((100% - 60px - var(--gap) * var(--offsets)) * 0.3);
+  max-width: 150px;
+}
+
+.app__option-title {
+  flex-basis: calc((100% - 60px - var(--gap) * var(--offsets)) * 0.6);
+}
+
+.app__button_delete {
+  width: 60px;
+
+  background-image: url('../../../images/recycle-bin.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 32px 36px;
+}
+
+.app__option-title:focus,
+.app__option-weight:focus {
+  border-color: var(--inputs-focus-border);
+  outline: none;
+  box-shadow: var(--inputs-focus-shadow);
+}
+
+@media (width <= 680px) {
+  .app__button_delete {
+    background-size: 24px 30px;
+  }
+}
+
+@media (width <= 580px) {
+  .app__option-title,
+  .app__option-weight,
+  .app__option-id,
+  .app__button_delete {
+    padding: 5px;
+  }
+}

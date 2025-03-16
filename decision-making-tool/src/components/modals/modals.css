@@ -1,0 +1,58 @@
+.app__valid-option-modal,
+.app__paste-list-modal {
+  width: 80%;
+  max-width: 600px;
+  border-radius: var(--inputs-border-radius);
+}
+
+.app__modal-container {
+  flex-direction: column;
+  gap: calc(var(--gap) * 2);
+}
+
+.app__button_cancel,
+.app__button_confirm {
+  max-width: 150px;
+}
+
+.app__paste-list-modal .app__modal-container {
+  flex-direction: column-reverse;
+}
+
+.app__modal-buttons {
+  gap: calc(var(--gap) * 2);
+}
+
+.app__paste-list-textarea {
+  padding: 10px;
+  border-radius: var(--inputs-border-radius);
+  font-size: 1rem;
+}
+
+.app__paste-list-textarea::placeholder {
+  font-size: 1rem;
+  white-space: pre;
+}
+
+@media (width <= 600px) {
+  .app__paste-list-textarea {
+    padding: 5px;
+    border-radius: var(--inputs-border-radius);
+    font-size: 1rem;
+  }
+
+  .app__paste-list-textarea::placeholder {
+    font-size: 0.8rem;
+  }
+
+  .app__button_cancel,
+  .app__button_confirm {
+    padding: 5px;
+  }
+}
+
+@media (width <= 480px) {
+  .app__paste-list-textarea::placeholder {
+    font-size: 0.7rem;
+  }
+}

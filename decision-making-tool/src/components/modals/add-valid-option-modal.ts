@@ -1,5 +1,7 @@
 import { createElementWithClass } from '../../utils/helpers';
 import { BaseModal } from './base-modal';
+import '../dom/Buttons/button.css';
+import './modals.css';
 
 export class AddValidOptionModal extends BaseModal {
   private _textContent: HTMLElement;

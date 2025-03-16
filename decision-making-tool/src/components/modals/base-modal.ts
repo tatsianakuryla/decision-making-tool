@@ -1,17 +1,26 @@
 import { createElementWithClass } from '../../utils/helpers';
-import { Button } from '../dom/button';
+import { Button } from '../dom/Buttons/button';
 
 export abstract class BaseModal {
   protected _modal: HTMLElement;
   protected _modalContainer: HTMLElement;
   protected _isOpen: boolean;
+  protected _buttonsContainer: HTMLElement;
 
   constructor(modalClass: string) {
     this._modal = createElementWithClass('dialog', ['app__modal', modalClass]);
     this._modalContainer = createElementWithClass('div', [
       'app__modal-container',
+      'flex',
     ]);
+
+    this._buttonsContainer = createElementWithClass('div', [
+      'app__modal-buttons',
+      'flex',
+    ]);
+
     this._isOpen = false;
+    this._modalContainer.append(this._buttonsContainer);
     this._modal.append(this._modalContainer);
     this._addModalEventListeners();
     this._createCancelButton();
@@ -45,7 +54,7 @@ export abstract class BaseModal {
 
   protected _createCancelButton(): void {
     const cancelButton = Button.createButton('Cancel');
-    this._modalContainer.append(cancelButton);
+    this._buttonsContainer.append(cancelButton);
     cancelButton.addEventListener('click', () => {
       this.close();
     });

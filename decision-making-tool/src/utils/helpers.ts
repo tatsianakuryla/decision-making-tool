@@ -14,10 +14,3 @@ export function createParagraph(className: string, text: string): HTMLElement {
   paragraph.textContent = text;
   return paragraph;
 }
-
-export function toggleClassListHidden(
-  element: HTMLElement,
-  isHidden: boolean,
-): void {
-  element.classList.toggle('hidden', isHidden);
-}

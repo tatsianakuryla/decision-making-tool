@@ -1,13 +1,11 @@
 import { createElementWithClass } from '../../utils/helpers';
-import { createParagraph, toggleClassListHidden } from '../../utils/helpers';
 import { type Option } from '../options/options';
 import { options, optionsList, errorBlock } from '../..';
-import { Button } from '../dom/button';
+import { Button } from '../dom/Buttons/button';
 import { BaseModal } from './base-modal';
 
 export class PasteListModal extends BaseModal {
   private _pasteListText: HTMLElement;
-  private _pasteListPlaceholder: HTMLElement;
 
   constructor() {
     super('app__paste-list-modal');
@@ -16,17 +14,16 @@ export class PasteListModal extends BaseModal {
       'app__paste-list-textarea',
     ]);
 
-    this._pasteListPlaceholder = createElementWithClass('div', [
-      'app__paste-list-placeholder',
-    ]);
-    this._createPlaceholderContent();
+    if (this._pasteListText instanceof HTMLTextAreaElement) {
+      this._pasteListText.placeholder = `Paste or enter a list of new options in a CSV-like format: title, weight.
+Example: Say Hi, 1 => option title: Say Hi, option weight: 1.
+Every new option must start from a new line;
+Every empty space counts`;
+      this._pasteListText.setAttribute('rows', '10');
+    }
 
-    this._modalContainer.append(
-      this._pasteListText,
-      this._pasteListPlaceholder,
-    );
+    this._modalContainer.append(this._pasteListText);
 
-    this._addTextEventListener();
     this._createConfirmButton();
   }
 
@@ -34,7 +31,6 @@ export class PasteListModal extends BaseModal {
     if (this._pasteListText instanceof HTMLTextAreaElement) {
       this._pasteListText.value = '';
     }
-    toggleClassListHidden(this._pasteListPlaceholder, false);
     super.close();
   }
 
@@ -82,48 +78,10 @@ export class PasteListModal extends BaseModal {
 
   private _createConfirmButton(): void {
     const confirmButton = Button.createButton('Confirm');
-    this._modalContainer.append(confirmButton);
+    this._buttonsContainer.append(confirmButton);
     confirmButton.addEventListener('click', () => {
       this._getPasteListTextValue();
       this.close();
-    });
-  }
-
-  private _createPlaceholderContent(): void {
-    const pasteListInfo = createParagraph(
-      'app__paste-list-info',
-      'Paste or enter a list of new options in a CSV-like format:',
-    );
-
-    const pasteListExample = createParagraph(
-      'app__paste-list-example',
-      'Example: Say Hi, 1 => option title: Say Hi, option weight: 1',
-    );
-
-    const pasteListRules = createParagraph(
-      'app__paste-list-rules',
-      `
-      Every new option must start from a new line;
-      Every empty space counts;
-    `,
-    );
-    pasteListRules.style.whiteSpace = 'pre';
-
-    this._pasteListPlaceholder.append(
-      pasteListInfo,
-      pasteListExample,
-      pasteListRules,
-    );
-  }
-
-  private _addTextEventListener(): void {
-    this._pasteListText.addEventListener('input', () => {
-      if (this._pasteListText instanceof HTMLTextAreaElement) {
-        toggleClassListHidden(
-          this._pasteListPlaceholder,
-          this._pasteListText.value.length > 0,
-        );
-      }
     });
   }
 }

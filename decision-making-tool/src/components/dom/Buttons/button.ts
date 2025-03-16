@@ -1,4 +1,5 @@
-import { createElementWithClass } from '../../utils/helpers';
+import { createElementWithClass } from '../../../utils/helpers';
+import './button.css';
 
 export class Button {
   public static createButton(buttonTitle: string): HTMLElement {
@@ -8,7 +9,9 @@ export class Button {
       `app__button_${buttonClass}`,
     ]);
 
-    button.textContent = buttonTitle;
+    if (buttonTitle !== 'Delete') {
+      button.textContent = buttonTitle;
+    }
 
     return button;
   }

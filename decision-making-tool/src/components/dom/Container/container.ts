@@ -1,8 +1,9 @@
-import { createElementWithClass } from '../../utils/helpers';
+import { createElementWithClass } from '../../../utils/helpers';
+import './container.css';
 
 export class Container {
   public static createAppContainer(): HTMLElement {
-    return createElementWithClass('div', ['app']);
+    return createElementWithClass('div', ['app', 'flex']);
   }
 
   public static createAppTitle(): HTMLElement {

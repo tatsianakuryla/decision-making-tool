@@ -5,7 +5,7 @@
     "color-named": "never",
     "font-family-no-missing-generic-family-keyword": true,
     "no-empty-source": true,
-    "selector-class-pattern": "^[a-z0-9\\-]+$",
+    "selector-class-pattern": "^[a-z0-9\\-_]+$",
     "selector-pseudo-class-no-unknown": [
       true,
       {

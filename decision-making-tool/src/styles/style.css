@@ -1,3 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+  --white: #fff;
+  --app-background: #f8f9fa;
+  --main-color: #333;
+  --elements-background: #f2f2f2;
+  --elements-border-color: #ddd;
+  --buttons-border-radius: 12px;
+  --inputs-border-radius: 8px;
+  --buttons-background: #d6d6d6;
+  --box-shadow:
+    4px 4px 8px rgb(0 0 0 / 5%), -4px -4px 8px rgb(255 255 255 / 70%);
+  --buttons-hover-shadow:
+    4px 4px 8px rgb(0 0 0 / 10%), -4px -4px 8px rgb(255 255 255 / 80%);
+  --buttons-active-shadow:
+    inset 4px 4px 8px rgb(0 0 0 / 10%),
+    inset -4px -4px 8px rgb(255 255 255 / 80%);
+  --buttons-focus-shadow:
+    0 0 0 3px rgb(0 0 0 / 10%), 6px 6px 12px rgb(0 0 0 / 20%),
+    -6px -6px 12px rgb(255 255 255 / 80%);
+  --buttons-hover-backgrond: #ff9e5e;
+  --inputs-focus-border: #ff8c42;
+  --inputs-focus-shadow: 0px 0px 10px rgb(255 140 66 / 50%);
+  --gap: 5px;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+::before,
+::after {
+  box-sizing: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Poppins, sans-serif;
+  font-size: 1rem;
+  color: var(--main-color);
+  background-color: var(--app-background);
+}
+
+.flex {
+  display: flex;
+}
+
 .hidden {
   display: none;
+}
+
+@media (width <= 760px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+@media (width <= 480px) {
+  html {
+    font-size: 12px;
+  }
 }

@@ -1,13 +1,17 @@
-import { createElementWithClass } from '../../utils/helpers';
-import { type Option } from '../options/options';
-import { options } from '../..';
-import { Button } from './button';
+import { createElementWithClass } from '../../../utils/helpers';
+import { type Option } from '../../options/options';
+import { options } from '../../..';
+import { Button } from '../Buttons/button';
+import './options-list.css';
 
 export class OptionsList {
   private _optionsList: HTMLElement;
 
   constructor() {
-    this._optionsList = createElementWithClass('ul', ['app__options-list']);
+    this._optionsList = createElementWithClass('ul', [
+      'app__options-list',
+      'flex',
+    ]);
   }
 
   public get optionsList(): HTMLElement {
@@ -22,7 +26,7 @@ export class OptionsList {
   }
 
   private _createOptionsItem(element: Option): HTMLElement {
-    const optionItem = createElementWithClass('li', ['app__option']);
+    const optionItem = createElementWithClass('li', ['app__option', 'flex']);
     optionItem.dataset.id = element.id.toString();
 
     const optionId = createElementWithClass('div', ['app__option-id']);
@@ -65,7 +69,7 @@ export class OptionsList {
     optionItem: HTMLElement,
     element: Option,
   ): void {
-    const deleteOptionButton = Button.createButton('Delete option');
+    const deleteOptionButton = Button.createButton('Delete');
     optionItem.append(deleteOptionButton);
     deleteOptionButton.addEventListener('click', () => {
       options.removeOption(element.id);

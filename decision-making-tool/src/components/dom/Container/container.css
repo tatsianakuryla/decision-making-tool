@@ -1,0 +1,21 @@
+.app {
+  position: relative;
+
+  flex-direction: column;
+  gap: var(--gap);
+
+  width: 100%;
+  max-width: 1440px;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.app__title {
+  margin-bottom: 20px;
+
+  font-family: Nunito, sans-serif;
+  font-size: 2rem;
+  color: var(--main-color);
+  text-align: center;
+}
