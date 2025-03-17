@@ -11,7 +11,7 @@ export class OptionsStorage {
   private _optionsArray: Option[];
 
   constructor() {
-    this._optionsArray = LocalStorage.getOptions('options');
+    this._optionsArray = LocalStorage.getOptions('options') ?? [];
   }
 
   public get getOptionsArray(): Option[] {
@@ -71,6 +71,8 @@ export class OptionsStorage {
   public initialize(): void {
     if (this._optionsArray.length < 1) {
       idGenerator.idCounterReset();
+    }
+    if (!LocalStorage.getOptions('options')) {
       this.addEmptyOption();
     }
   }

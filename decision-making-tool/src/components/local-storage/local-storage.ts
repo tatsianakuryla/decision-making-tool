@@ -5,9 +5,9 @@ export class LocalStorage {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
-  public static getOptions(key: string): Option[] | [] {
+  public static getOptions(key: string): Option[] | null {
     const result = localStorage.getItem(key);
-    return result ? JSON.parse(result) : [];
+    return result ? JSON.parse(result) : null;
   }
 
   public static clear(): void {

@@ -1,6 +1,6 @@
 import { createElementWithClass } from '../../../utils/helpers';
 import { Modal } from './modal';
-import '../dom/Buttons/button.css';
+import '../Buttons/button.css';
 import './modals.css';
 
 export class ValidOptionModal extends Modal {

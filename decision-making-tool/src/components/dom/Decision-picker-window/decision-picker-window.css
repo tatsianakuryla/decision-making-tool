@@ -1,0 +1,4 @@
+.app__decision-picker-components {
+  flex-direction: column;
+  gap: var(--gap);
+}

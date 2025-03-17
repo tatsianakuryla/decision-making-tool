@@ -1,0 +1,4 @@
+.app__start-window-components {
+  flex-direction: column;
+  gap: var(--gap);
+}

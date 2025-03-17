@@ -6,9 +6,11 @@ import { ValidOptionModal } from '../Modals/valid-option-modal';
 import { OptionsPasteModal } from '../Modals/options-paste-modal';
 import { Button } from './button';
 import './buttons-factory.css';
+import { StartWindow } from '../Start-window/start-window';
+import { DecisionPickerWindow } from '../Decision-picker-window/decision-picker-window';
 
 export class ButtonsFactory {
-  public static getButtons(): HTMLElement {
+  public static getStartWindowButtons(): HTMLElement {
     const buttonContainer = createElementWithClass('div', [
       'app__buttons-container',
       'flex',
@@ -57,11 +59,45 @@ export class ButtonsFactory {
     });
 
     startButton.addEventListener('click', () => {
-      if (optionsStorage.countValidOptions() < 1) {
+      if (optionsStorage.countValidOptions() < 2) {
         addValidOptionModal.open();
+      } else {
+        DecisionPickerWindow.render();
       }
     });
 
     return buttonContainer;
+  }
+
+  public static getDecisionPickerSettingsElements(): HTMLElement {
+    const container = createElementWithClass('div', [
+      'app__buttons-container',
+      'flex',
+    ]);
+
+    const toStartWindowButton = Button.createButton('back');
+    const soundButton = Button.createButton('sound');
+    const startPickingButton = Button.createButton('start');
+
+    const durationInput = createElementWithClass('input', [
+      'app__duration-input',
+    ]);
+
+    //TODO DURATION INPUT VALUE//ADD EVENT LISTENER 'input'
+    if (durationInput instanceof HTMLInputElement) {
+      durationInput.placeholder = 'sec';
+      durationInput.type = 'number';
+      durationInput.value = '16';
+    }
+
+    container.append(
+      toStartWindowButton,
+      soundButton,
+      durationInput,
+      startPickingButton,
+    );
+
+    toStartWindowButton.addEventListener('click', () => StartWindow.render());
+    return container;
   }
 }
