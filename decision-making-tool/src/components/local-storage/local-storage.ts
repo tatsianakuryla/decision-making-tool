@@ -1,11 +1,11 @@
-import { type Option } from '../OptionsStorage/options-storage';
+import { type Option } from '../Options-storage/options-storage';
 
 export class LocalStorage {
-  public static saveData(key: string, value: Option[]): void {
+  public static saveOptions(key: string, value: Option[]): void {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
-  public static getData(key: string): Option[] | [] {
+  public static getOptions(key: string): Option[] | [] {
     const result = localStorage.getItem(key);
     return result ? JSON.parse(result) : [];
   }

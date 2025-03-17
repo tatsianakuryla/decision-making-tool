@@ -1,11 +1,11 @@
 import {
-  errorBlock,
+  errorNotification,
   optionsStorage,
   optionsRenderer,
   idGenerator,
 } from '../..';
 import { createElementWithClass } from '../../utils/helpers';
-import { type Option } from '../OptionsStorage/options-storage';
+import { type Option } from '../Options-storage/options-storage';
 
 export class OptionsImporter {
   private _fileInput: HTMLElement;
@@ -51,7 +51,7 @@ export class OptionsImporter {
       reader.onload = (): void => {
         const result = reader.result;
         if (typeof result !== 'string') {
-          errorBlock.open('Invalid file content!');
+          errorNotification.open('Invalid file content!');
           return;
         }
         try {
@@ -59,11 +59,11 @@ export class OptionsImporter {
           const parsedId = JSON.parse(result)?.lastId;
 
           if (!this._isValidOptionsData(parsedOptions)) {
-            errorBlock.open('Invalid file format!');
+            errorNotification.open('Invalid file format!');
             return;
           }
           if (parsedOptions.length === 0) {
-            errorBlock.open('Options were not found!');
+            errorNotification.open('Options were not found!');
             return;
           }
 
@@ -75,7 +75,7 @@ export class OptionsImporter {
           });
           optionsRenderer.renderOptionsList(optionsStorage.getOptionsArray);
         } catch {
-          errorBlock.open('Invalid file format!');
+          errorNotification.open('Invalid file format!');
         }
       };
 

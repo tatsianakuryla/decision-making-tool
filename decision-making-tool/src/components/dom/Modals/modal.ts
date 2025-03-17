@@ -1,7 +1,7 @@
-import { createElementWithClass } from '../../utils/helpers';
-import { Button } from '../dom/Buttons/button';
+import { createElementWithClass } from '../../../utils/helpers';
+import { Button } from '../Buttons/button';
 
-export abstract class BaseModal {
+export abstract class Modal {
   protected _modal: HTMLElement;
   protected _modalContainer: HTMLElement;
   protected _isOpen: boolean;

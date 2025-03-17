@@ -1,43 +1,43 @@
-import { createElementWithClass } from '../../utils/helpers';
-import { optionsStorage, optionsRenderer, errorBlock } from '../..';
-import { Button } from '../dom/Buttons/button';
-import { BaseModal } from './base-modal';
+import { createElementWithClass } from '../../../utils/helpers';
+import { optionsStorage, optionsRenderer, errorNotification } from '../../..';
+import { Button } from '../Buttons/button';
+import { Modal } from './modal';
 
-export class PasteListModal extends BaseModal {
-  private _pasteListText: HTMLElement;
+export class OptionsPasteModal extends Modal {
+  private _textArea: HTMLElement;
 
   constructor() {
     super('app__paste-list-modal');
 
-    this._pasteListText = createElementWithClass('textarea', [
+    this._textArea = createElementWithClass('textarea', [
       'app__paste-list-textarea',
     ]);
 
-    if (this._pasteListText instanceof HTMLTextAreaElement) {
-      this._pasteListText.placeholder = `Paste or enter a list of new options in a CSV-like format: title, weight.
+    if (this._textArea instanceof HTMLTextAreaElement) {
+      this._textArea.placeholder = `Paste or enter a list of new options in a CSV-like format: title, weight.
 Example: Say Hi, 1 => option title: Say Hi, option weight: 1.
 Every new option must start from a new line;
 Every empty space counts`;
-      this._pasteListText.setAttribute('rows', '10');
+      this._textArea.setAttribute('rows', '10');
     }
 
-    this._modalContainer.append(this._pasteListText);
+    this._modalContainer.append(this._textArea);
 
     this._createConfirmButton();
   }
 
   public override close(): void {
-    if (this._pasteListText instanceof HTMLTextAreaElement) {
-      this._pasteListText.value = '';
+    if (this._textArea instanceof HTMLTextAreaElement) {
+      this._textArea.value = '';
     }
     super.close();
   }
 
-  private _getPasteListTextValue(): void {
-    if (this._pasteListText instanceof HTMLTextAreaElement) {
-      if (this._pasteListText.value.trim().length > 0) {
+  private _handleOptionListInput(): void {
+    if (this._textArea instanceof HTMLTextAreaElement) {
+      if (this._textArea.value.trim().length > 0) {
         let wrongDataFormatError = false;
-        const strings = this._pasteListText.value.split('\n');
+        const strings = this._textArea.value.split('\n');
 
         strings.forEach((option) => {
           const lastCommaIndex = option.lastIndexOf(',');
@@ -61,7 +61,7 @@ Every empty space counts`;
           );
         });
         if (wrongDataFormatError) {
-          errorBlock.open(
+          errorNotification.open(
             'Not to lose data the option must be formatted strictly in the following way: title, weight',
           );
         }
@@ -73,7 +73,7 @@ Every empty space counts`;
     const confirmButton = Button.createButton('Confirm');
     this._buttonsContainer.append(confirmButton);
     confirmButton.addEventListener('click', () => {
-      this._getPasteListTextValue();
+      this._handleOptionListInput();
       this.close();
     });
   }

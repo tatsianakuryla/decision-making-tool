@@ -2,8 +2,8 @@ import { optionsStorage, optionsRenderer } from '../../..';
 import { createElementWithClass } from '../../../utils/helpers';
 import { OptionsImporter } from '../../Options-importer/options-importer';
 import { OptionsExporter } from '../../Options-exporter/options-exporter';
-import { AddValidOptionModal } from '../../Modals/add-valid-option-modal';
-import { PasteListModal } from '../../Modals/paste-list-modal';
+import { ValidOptionModal } from '../Modals/valid-option-modal';
+import { OptionsPasteModal } from '../Modals/options-paste-modal';
 import { Button } from './button';
 import './buttons-factory.css';
 
@@ -30,10 +30,10 @@ export class ButtonsFactory {
       startButton,
     );
 
-    const pasteListModal = new PasteListModal();
+    const pasteListModal = new OptionsPasteModal();
     const saveOptions = new OptionsExporter();
     const loadOptions = new OptionsImporter();
-    const addValidOptionModal = new AddValidOptionModal();
+    const addValidOptionModal = new ValidOptionModal();
 
     clearListButton.addEventListener('click', () => {
       optionsStorage.clear();

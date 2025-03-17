@@ -11,7 +11,7 @@ export class OptionsStorage {
   private _optionsArray: Option[];
 
   constructor() {
-    this._optionsArray = LocalStorage.getData('options');
+    this._optionsArray = LocalStorage.getOptions('options');
   }
 
   public get getOptionsArray(): Option[] {
@@ -76,6 +76,6 @@ export class OptionsStorage {
   }
 
   private _saveToLocalStorage(): void {
-    LocalStorage.saveData('options', this._optionsArray);
+    LocalStorage.saveOptions('options', this._optionsArray);
   }
 }
