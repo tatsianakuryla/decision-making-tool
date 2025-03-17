@@ -1,4 +1,4 @@
-import { createParagraph } from '../../../../utils/helpers';
+import { createParagraph } from '../../../utils/helpers';
 
 export class PickedOptionInfo {
   private _info: HTMLElement;

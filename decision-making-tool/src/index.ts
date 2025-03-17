@@ -9,8 +9,8 @@ import './styles/style.css';
 import { DecisionPickerWindow } from './components/dom/Decision-picker-window/decision-picker-window';
 import { CanvasCreator } from './components/dom/Canvas-creator/canvas-creator';
 import { DecisionPicker } from './components/Decision-picker/decision-picker';
-import { PickedOptionInfo } from './components/dom/Decision-picker-window/Picked-option-info/picked-option-info';
-import { DurationInput } from './components/dom/Decision-picker-window/Duration-input/Duration-input';
+import { PickedOptionInfo } from './components/dom/Picked-option-info/picked-option-info';
+import { DurationInput } from './components/dom/Duration-input/Duration-input';
 
 export const appContainer = ContainerFactory.createAppContainer();
 

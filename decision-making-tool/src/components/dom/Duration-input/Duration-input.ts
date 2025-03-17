@@ -1,5 +1,5 @@
-import { decisionPicker, errorNotification } from '../../../..';
-import { createElementWithClass } from '../../../../utils/helpers';
+import { decisionPicker, errorNotification } from '../../..';
+import { createElementWithClass } from '../../../utils/helpers';
 
 export class DurationInput {
   private _input: HTMLElement;
