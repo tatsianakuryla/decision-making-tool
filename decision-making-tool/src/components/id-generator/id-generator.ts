@@ -1,4 +1,4 @@
-import { LocalStorage } from '../Local-storage/local-storage';
+import { LocalStorage } from '../local-storage/local-storage';
 
 export class IdGenerator {
   private _idCounter: number;

@@ -1,14 +1,14 @@
 import { ContainerFactory } from './components/dom/Container-factory/container-factory';
 import { OptionsRenderer } from './components/dom/Options-renderer/options-renderer';
-import { OptionsStorage } from './components/Options-storage/options-storage';
+import { OptionsStorage } from './components/options-storage/options-storage';
 import { ErrorNotification } from './components/dom/Error-notification/error-notification';
-import { IdGenerator } from './components/Id-generator/id-generator';
+import { IdGenerator } from './components/id-generator/id-generator';
 import { StartWindow } from './components/dom/Start-window/start-window';
 import './styles/modern-normalize.css';
 import './styles/style.css';
-import { DecisionPickerWindow } from './components/dom/Decision-picker-window/decision-picker-window';
+import { DecisionPickerWindow } from './components/dom/decision-picker-window/decision-picker-window';
 import { CanvasCreator } from './components/dom/Canvas-creator/canvas-creator';
-import { DecisionPicker } from './components/Decision-picker/decision-picker';
+import { DecisionPicker } from './components/decision-picker/decision-picker';
 import { PickedOptionInfo } from './components/dom/Picked-option-info/picked-option-info';
 import { DurationInput } from './components/dom/Duration-input/Duration-input';
 

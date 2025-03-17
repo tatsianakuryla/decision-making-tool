@@ -1,6 +1,6 @@
 import { optionsRenderer, optionsStorage } from '../../..';
 import { createElementWithClass } from '../../../utils/helpers';
-import { type Option } from '../../Options-storage/options-storage';
+import { type Option } from '../../options-storage/options-storage';
 import { Button } from '../Buttons/button';
 
 export class OptionsItemFactory {

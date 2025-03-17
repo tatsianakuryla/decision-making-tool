@@ -5,7 +5,7 @@ import {
   idGenerator,
 } from '../..';
 import { createElementWithClass } from '../../utils/helpers';
-import { type Option } from '../Options-storage/options-storage';
+import { type Option } from '../options-storage/options-storage';
 
 export class OptionsImporter {
   private _fileInput: HTMLElement;

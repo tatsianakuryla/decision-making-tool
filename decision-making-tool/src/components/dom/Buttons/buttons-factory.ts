@@ -5,14 +5,14 @@ import {
   decisionPicker,
 } from '../../..';
 import { createElementWithClass } from '../../../utils/helpers';
-import { OptionsImporter } from '../../Options-importer/options-importer';
-import { OptionsExporter } from '../../Options-exporter/options-exporter';
+import { OptionsImporter } from '../../options-importer/options-importer';
+import { OptionsExporter } from '../../options-exporter/options-exporter';
 import { ValidOptionModal } from '../Modals/valid-option-modal';
 import { OptionsPasteModal } from '../Modals/options-paste-modal';
 import { Button } from './button';
 import './buttons-factory.css';
 import { StartWindow } from '../Start-window/start-window';
-import { DecisionPickerWindow } from '../Decision-picker-window/decision-picker-window';
+import { DecisionPickerWindow } from '../decision-picker-window/decision-picker-window';
 
 export class ButtonsFactory {
   public static getStartWindowButtons(): HTMLElement {
