@@ -1,14 +1,12 @@
 import {
   appContainer,
+  canvas,
   decisionPickerComponents,
+  pickedOptionInfoElement,
   startWindowComponents,
 } from '../../..';
-import {
-  createElementWithClass,
-  createParagraph,
-} from '../../../utils/helpers';
+import { createElementWithClass } from '../../../utils/helpers';
 import { ButtonsFactory } from '../Buttons/buttons-factory';
-import { CanvasFactory } from '../Canvas-factory/canvas-factory';
 import './decision-picker-window.css';
 
 export class DecisionPickerWindow {
@@ -22,8 +20,8 @@ export class DecisionPickerWindow {
 
     this._components.append(
       ButtonsFactory.getDecisionPickerSettingsElements(),
-      createParagraph('app__picker-input', 'PRESS START BUTTON'),
-      CanvasFactory.getCanvas(),
+      pickedOptionInfoElement,
+      canvas,
     );
   }
 

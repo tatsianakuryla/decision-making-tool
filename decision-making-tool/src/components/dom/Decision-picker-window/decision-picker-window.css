@@ -1,4 +1,36 @@
 .app__decision-picker-components {
   flex-direction: column;
   gap: var(--gap);
+  align-items: center;
+  justify-content: center;
+}
+
+.app__picker-info,
+.app__duration-input {
+  padding: 10px;
+  border: 1px solid var(--elements-border-color);
+  border-radius: var(--inputs-border-radius);
+
+  background-color: var(--elements-background);
+  box-shadow: var(--box-shadow);
+}
+
+.app__duration-input {
+  position: relative;
+
+  width: 120px;
+  margin-left: auto;
+  padding-left: 40px;
+
+  background-image: url('../../../images/alarm.png');
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  background-size: 20px 20px;
+}
+
+.app__picker-info {
+  min-width: 150px;
+  max-width: max-content;
+  margin-bottom: 10px;
+  text-align: center;
 }

@@ -1,4 +1,9 @@
-import { optionsStorage, optionsRenderer } from '../../..';
+import {
+  optionsStorage,
+  optionsRenderer,
+  durationInputElement,
+  decisionPicker,
+} from '../../..';
 import { createElementWithClass } from '../../../utils/helpers';
 import { OptionsImporter } from '../../Options-importer/options-importer';
 import { OptionsExporter } from '../../Options-exporter/options-exporter';
@@ -63,6 +68,7 @@ export class ButtonsFactory {
         addValidOptionModal.open();
       } else {
         DecisionPickerWindow.render();
+        decisionPicker.updateOptions();
       }
     });
 
@@ -72,32 +78,32 @@ export class ButtonsFactory {
   public static getDecisionPickerSettingsElements(): HTMLElement {
     const container = createElementWithClass('div', [
       'app__buttons-container',
+      'app__buttons-container_picking',
       'flex',
     ]);
 
-    const toStartWindowButton = Button.createButton('back');
+    const returnToStartWindowButton = Button.createButton('back');
     const soundButton = Button.createButton('sound');
-    const startPickingButton = Button.createButton('start');
-
-    const durationInput = createElementWithClass('input', [
-      'app__duration-input',
-    ]);
-
-    //TODO DURATION INPUT VALUE//ADD EVENT LISTENER 'input'
-    if (durationInput instanceof HTMLInputElement) {
-      durationInput.placeholder = 'sec';
-      durationInput.type = 'number';
-      durationInput.value = '16';
-    }
+    const startPickingButton = Button.createButton('Start');
 
     container.append(
-      toStartWindowButton,
+      returnToStartWindowButton,
       soundButton,
-      durationInput,
+      durationInputElement,
       startPickingButton,
     );
 
-    toStartWindowButton.addEventListener('click', () => StartWindow.render());
+    returnToStartWindowButton.addEventListener('click', () =>
+      StartWindow.render(),
+    );
+
+    startPickingButton.addEventListener('click', () => {
+      decisionPicker.spinWheel();
+    });
+
+    soundButton.addEventListener('click', () => {
+      soundButton.classList.toggle('app__button_sound-off');
+    });
     return container;
   }
 }

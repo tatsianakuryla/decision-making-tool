@@ -9,7 +9,11 @@ export class Button {
       `app__button_${buttonClass}`,
     ]);
 
-    if (buttonTitle !== 'Delete') {
+    if (
+      buttonTitle !== 'Delete' &&
+      buttonTitle !== 'back' &&
+      buttonTitle !== 'sound'
+    ) {
       button.textContent = buttonTitle;
     }
 

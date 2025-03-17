@@ -1,7 +1,6 @@
 import {
   appContainer,
   decisionPickerComponents,
-  errorNotification,
   optionsRenderer,
   startWindowComponents,
 } from '../../..';
@@ -21,7 +20,6 @@ export class StartWindow {
     this._components.append(
       optionsRenderer.optionsList,
       ButtonsFactory.getStartWindowButtons(),
-      errorNotification.getErrorNotificationk,
     );
   }
   public get components(): HTMLElement {

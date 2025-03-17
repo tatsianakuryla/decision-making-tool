@@ -15,8 +15,27 @@
   transition: all 0.2s ease-in-out;
 }
 
+.app__button_back,
+.app__button_sound {
+  width: 50px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.app__button_back {
+  background-image: url('../../../images/go-back-arrow.png');
+}
+
+.app__button_sound {
+  background-image: url('../../../images/volume-on.png');
+}
+
+.app__button_sound.app__button_sound-off {
+  background-image: url('../../../images/volume-mute.png');
+}
+
 .app__button:focus {
-  background: var(--buttons-background);
+  background-color: var(--buttons-background);
   outline: none;
   box-shadow: var(--buttons-focus-shadow);
 }

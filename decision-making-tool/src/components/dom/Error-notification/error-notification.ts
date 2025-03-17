@@ -14,7 +14,7 @@ export class ErrorNotification {
     this._errorNotification.append(createParagraph('app__error-text', ''));
   }
 
-  public get getErrorNotificationk(): HTMLElement {
+  public get getErrorNotification(): HTMLElement {
     return this._errorNotification;
   }
 
