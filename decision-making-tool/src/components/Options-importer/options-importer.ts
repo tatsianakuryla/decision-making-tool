@@ -7,38 +7,35 @@ import {
 import { createElementWithClass } from '../../utils/helpers';
 import { type Option } from '../OptionsStorage/options-storage';
 
-export class OptionsLoader {
-  private _inputToLoad: HTMLElement;
+export class OptionsImporter {
+  private _fileInput: HTMLElement;
   private _readData: Option[] = [];
   private _isValidOptionData: boolean;
 
   constructor() {
-    this._inputToLoad = createElementWithClass('input', [
+    this._fileInput = createElementWithClass('input', [
       'app__input-to-load-options',
       'hidden',
     ]);
 
-    if (this._inputToLoad instanceof HTMLInputElement) {
-      this._inputToLoad.type = 'file';
-      this._inputToLoad.accept = '.json';
+    if (this._fileInput instanceof HTMLInputElement) {
+      this._fileInput.type = 'file';
+      this._fileInput.accept = '.json';
     }
 
-    this._inputToLoad.addEventListener(
-      'change',
-      this._readLoadedFile.bind(this),
-    );
+    this._fileInput.addEventListener('change', this._readLoadedFile.bind(this));
     this._isValidOptionData = true;
   }
 
   public get inputToLoad(): HTMLElement {
-    return this._inputToLoad;
+    return this._fileInput;
   }
 
   public loadOptions(): void {
-    if (this._inputToLoad instanceof HTMLInputElement) {
-      document.body.append(this._inputToLoad);
-      this._inputToLoad.value = '';
-      this._inputToLoad.click();
+    if (this._fileInput instanceof HTMLInputElement) {
+      document.body.append(this._fileInput);
+      this._fileInput.value = '';
+      this._fileInput.click();
     }
   }
 

@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './decision-making-tool/src/index.ts',
@@ -35,6 +36,14 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './decision-making-tool/src/index.html',
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: './decision-making-tool/src/images/favicon.png',
+          to: 'favicon.png',
+        },
+      ],
     }),
   ],
 };

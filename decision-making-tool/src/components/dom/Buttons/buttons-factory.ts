@@ -1,7 +1,7 @@
 import { optionsStorage, optionsRenderer } from '../../..';
 import { createElementWithClass } from '../../../utils/helpers';
-import { OptionsLoader } from '../../input-to-load-options/input-to-load-options';
-import { SaveOptions } from '../../link-to-save-options/link-to-save-options';
+import { OptionsImporter } from '../../Options-importer/options-importer';
+import { OptionsExporter } from '../../Options-exporter/options-exporter';
 import { AddValidOptionModal } from '../../Modals/add-valid-option-modal';
 import { PasteListModal } from '../../Modals/paste-list-modal';
 import { Button } from './button';
@@ -31,8 +31,8 @@ export class ButtonsFactory {
     );
 
     const pasteListModal = new PasteListModal();
-    const saveOptions = new SaveOptions();
-    const loadOptions = new OptionsLoader();
+    const saveOptions = new OptionsExporter();
+    const loadOptions = new OptionsImporter();
     const addValidOptionModal = new AddValidOptionModal();
 
     clearListButton.addEventListener('click', () => {
@@ -49,7 +49,7 @@ export class ButtonsFactory {
     });
 
     saveListToFileButton.addEventListener('click', () => {
-      saveOptions.saveOptions();
+      saveOptions.exportToJSON();
     });
 
     loadListFromFileButton.addEventListener('click', () => {
