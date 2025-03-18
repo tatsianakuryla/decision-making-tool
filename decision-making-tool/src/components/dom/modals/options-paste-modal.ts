@@ -54,7 +54,7 @@ Every empty space counts`;
             return;
           }
 
-          const title = option.slice(0, lastCommaIndex).trim();
+          const title = option.slice(0, lastCommaIndex);
           const regex = /[^\s.,!?;:(){}[\]<>/"'*-]/;
           if (!regex.test(title)) {
             wrongDataFormatError = true;

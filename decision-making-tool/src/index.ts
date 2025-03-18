@@ -37,6 +37,7 @@ appContainer.append(
   errorNotification.getErrorNotification,
   startWindowContainer,
 );
+
 document.body.append(appContainer);
 optionsStorage.initialize();
 optionsRenderer.renderOptionsList(optionsStorage.getOptionsArray);
