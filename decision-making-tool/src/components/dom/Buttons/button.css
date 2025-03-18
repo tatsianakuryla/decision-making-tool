@@ -49,13 +49,15 @@
 .app__button:disabled:focus,
 .app__button:disabled:active {
   cursor: not-allowed;
+
+  border-color: var(--disabled-border);
+
+  color: var(--disabled-text);
+
   opacity: 0.5;
+  background-color: var(--disabled-bg);
   filter: grayscale(50%);
   box-shadow: none;
-  background-color: var(--disabled-bg);
-  color: var(--disabled-text);
-  border-color: var(--disabled-border);
-  pointer-events: none;
 }
 
 @media (hover: hover) {
