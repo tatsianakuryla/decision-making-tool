@@ -34,10 +34,7 @@ export const idGenerator = new IdGenerator();
 export const startWindow = new StartScreen();
 export const startWindowContainer = startWindow.container;
 
-appContainer.append(
-  errorNotification.getErrorNotification,
-  // startWindowContainer,
-);
+appContainer.append(errorNotification.getErrorNotification);
 
 document.body.append(appContainer);
 Router.init();
