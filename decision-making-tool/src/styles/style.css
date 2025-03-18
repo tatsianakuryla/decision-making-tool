@@ -26,6 +26,7 @@
   --disabled-bg: #ccc;
   --disabled-text: #888;
   --disabled-border: #aaa;
+  --selected: #00ff7f;
 }
 
 html {

@@ -8,7 +8,6 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    // publicPath: '/tatsianakuryla-JSFE2024Q4/decision-making-tool/',
   },
   mode: 'development',
   devtool: 'source-map',
@@ -42,6 +41,10 @@ module.exports = {
         {
           from: './decision-making-tool/src/images/favicon.png',
           to: 'favicon.png',
+        },
+        {
+          from: './decision-making-tool/src/assets',
+          to: 'assets',
         },
       ],
     }),

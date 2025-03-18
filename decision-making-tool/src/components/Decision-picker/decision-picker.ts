@@ -20,6 +20,8 @@ export class DecisionPicker {
   private _isSpinning: boolean = false;
   private _duration: number;
   private _usedColors: Set<string> = new Set();
+  private _selectSound: HTMLAudioElement;
+  private _isSelectedSoundOn: boolean;
 
   constructor() {
     this._options = optionsStorage.getOptionsArray
@@ -50,6 +52,8 @@ export class DecisionPicker {
     }
 
     this._ctx = context;
+    this._selectSound = new Audio('./assets/audio.mp3');
+    this._isSelectedSoundOn = true;
   }
 
   public get getDuration(): number {
@@ -90,10 +94,18 @@ export class DecisionPicker {
         this._rotationAngle = ((this._rotationAngle % 360) + 360) % 360;
         this._isSpinning = false;
         ButtonsFactory.enableControls();
+        if (this._isSelectedSoundOn) {
+          this._playSelectSound();
+        }
+        pickedOptionInfoElement.classList.add('selected');
       }
     };
 
     requestAnimationFrame(animate);
+  }
+
+  public toggleIsSelectedSoundOn(): void {
+    this._isSelectedSoundOn = !this._isSelectedSoundOn;
   }
 
   public updateOptions(): void {
@@ -110,6 +122,13 @@ export class DecisionPicker {
     );
 
     this._drawWheel();
+  }
+
+  private _playSelectSound(): void {
+    this._selectSound.currentTime = 0;
+    this._selectSound
+      .play()
+      .catch((): void => errorNotification.open('Audio play failed'));
   }
 
   private _drawWheel(): void {

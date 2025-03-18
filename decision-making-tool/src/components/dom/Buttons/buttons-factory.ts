@@ -105,6 +105,7 @@ export class ButtonsFactory {
 
     this._soundToggleButton.addEventListener('click', () => {
       this._soundToggleButton.classList.toggle('app__button_sound-off');
+      decisionPicker.toggleIsSelectedSoundOn();
     });
     return container;
   }
