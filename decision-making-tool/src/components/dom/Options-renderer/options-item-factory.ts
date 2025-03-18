@@ -1,7 +1,7 @@
 import { optionsRenderer, optionsStorage } from '../../..';
 import { createElementWithClass } from '../../../utils/helpers';
 import { type Option } from '../../options-storage/options-storage';
-import { Button } from '../Buttons/button';
+import { Button } from '../buttons/button';
 
 export class OptionsItemFactory {
   public static getItem(element: Option): HTMLElement {

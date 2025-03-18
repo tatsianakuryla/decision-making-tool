@@ -1,6 +1,6 @@
 import { createElementWithClass } from '../../../utils/helpers';
 import { optionsStorage, optionsRenderer, errorNotification } from '../../..';
-import { Button } from '../Buttons/button';
+import { Button } from '../buttons/button';
 import { Modal } from './modal';
 
 export class OptionsPasteModal extends Modal {

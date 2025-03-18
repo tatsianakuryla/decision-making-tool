@@ -1,16 +1,16 @@
-import { ContainerFactory } from './components/dom/Container-factory/container-factory';
-import { OptionsRenderer } from './components/dom/Options-renderer/options-renderer';
+import { ContainerFactory } from './components/dom/container-factory/container-factory';
+import { OptionsRenderer } from './components/dom/options-renderer/options-renderer';
 import { OptionsStorage } from './components/options-storage/options-storage';
-import { ErrorNotification } from './components/dom/Error-notification/error-notification';
+import { ErrorNotification } from './components/dom/error-notification/error-notification';
 import { IdGenerator } from './components/id-generator/id-generator';
-import { StartWindow } from './components/dom/Start-window/start-window';
+import { StartScreen } from './components/dom/start-screen/start-screen';
+import { DecisionPickerScreen } from './components/dom/decision-picker-screen/decision-picker-screen';
+import { CanvasCreator } from './components/dom/canvas-creator/canvas-creator';
+import { DecisionPicker } from './components/decision-picker/decision-picker';
+import { PickedOptionInfo } from './components/dom/picked-option-info/picked-option-info';
+import { DurationInput } from './components/dom/duration-input/duration-input';
 import './styles/modern-normalize.css';
 import './styles/style.css';
-import { DecisionPickerWindow } from './components/dom/decision-picker-window/decision-picker-window';
-import { CanvasCreator } from './components/dom/Canvas-creator/canvas-creator';
-import { DecisionPicker } from './components/decision-picker/decision-picker';
-import { PickedOptionInfo } from './components/dom/Picked-option-info/picked-option-info';
-import { DurationInput } from './components/dom/Duration-input/Duration-input';
 
 export const appContainer = ContainerFactory.createAppContainer();
 
@@ -23,19 +23,19 @@ export const durationInput = new DurationInput();
 export const durationInputElement = durationInput.getInput;
 export const pickedOptionInfo = new PickedOptionInfo();
 export const pickedOptionInfoElement = pickedOptionInfo.getInfo;
-export const decisionPickerWindow = new DecisionPickerWindow();
-export const decisionPickerComponents = decisionPickerWindow.components;
+export const decisionPickerScreen = new DecisionPickerScreen();
+export const decisionPickerContainer = decisionPickerScreen.container;
 
 export const optionsRenderer = new OptionsRenderer();
 export const errorNotification = new ErrorNotification();
 export const idGenerator = new IdGenerator();
 
-export const startWindow = new StartWindow();
-export const startWindowComponents = startWindow.components;
+export const startWindow = new StartScreen();
+export const startWindowContainer = startWindow.container;
 
 appContainer.append(
   errorNotification.getErrorNotification,
-  startWindowComponents,
+  startWindowContainer,
 );
 document.body.append(appContainer);
 optionsStorage.initialize();

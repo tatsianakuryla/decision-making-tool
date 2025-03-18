@@ -40,14 +40,28 @@
   box-shadow: var(--buttons-focus-shadow);
 }
 
+.app__button:active {
+  box-shadow: var(--buttons-active-shadow);
+}
+
+.app__button:disabled,
+.app__button:disabled:hover,
+.app__button:disabled:focus,
+.app__button:disabled:active {
+  cursor: not-allowed;
+  opacity: 0.5;
+  filter: grayscale(50%);
+  box-shadow: none;
+  background-color: var(--disabled-bg);
+  color: var(--disabled-text);
+  border-color: var(--disabled-border);
+  pointer-events: none;
+}
+
 @media (hover: hover) {
   .app__button:hover {
     color: var(--white);
     background-color: var(--buttons-hover-backgrond);
     box-shadow: var(--box-shadow);
   }
-}
-
-.app__button:active {
-  box-shadow: var(--buttons-active-shadow);
 }

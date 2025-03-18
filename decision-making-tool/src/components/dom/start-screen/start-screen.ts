@@ -1,14 +1,14 @@
 import {
   appContainer,
-  decisionPickerComponents,
+  decisionPickerContainer,
   optionsRenderer,
-  startWindowComponents,
+  startWindowContainer,
 } from '../../..';
 import { createElementWithClass } from '../../../utils/helpers';
-import { ButtonsFactory } from '../Buttons/buttons-factory';
-import './start-window.css';
+import { ButtonsFactory } from '../buttons/buttons-factory';
+import './start-screen.css';
 
-export class StartWindow {
+export class StartScreen {
   private _components: HTMLElement;
 
   constructor() {
@@ -19,15 +19,15 @@ export class StartWindow {
 
     this._components.append(
       optionsRenderer.optionsList,
-      ButtonsFactory.getStartWindowButtons(),
+      ButtonsFactory.createStartScreenButtons(),
     );
   }
-  public get components(): HTMLElement {
+  public get container(): HTMLElement {
     return this._components;
   }
 
-  public static render(): void {
-    appContainer.removeChild(decisionPickerComponents);
-    appContainer.append(startWindowComponents);
+  public static show(): void {
+    appContainer.removeChild(decisionPickerContainer);
+    appContainer.append(startWindowContainer);
   }
 }

@@ -1,5 +1,5 @@
 import { createElementWithClass } from '../../../utils/helpers';
-import { Button } from '../Buttons/button';
+import { Button } from '../buttons/button';
 
 export abstract class Modal {
   protected _modal: HTMLElement;

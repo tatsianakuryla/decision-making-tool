@@ -5,6 +5,7 @@ import {
   optionsStorage,
   pickedOptionInfoElement,
 } from '../..';
+import { ButtonsFactory } from '../dom/buttons/buttons-factory';
 import { type Option } from '../options-storage/options-storage';
 
 type CanvaOptionType = Option & { color: string };
@@ -67,6 +68,8 @@ export class DecisionPicker {
     if (this._isSpinning) return;
 
     this._isSpinning = true;
+    ButtonsFactory.disableControls();
+
     const startTime = performance.now();
     const startRotationAngle = this._rotationAngle;
     const totalRotation = 360 * (Math.random() * 3 + 3);
@@ -86,6 +89,7 @@ export class DecisionPicker {
       } else {
         this._rotationAngle = ((this._rotationAngle % 360) + 360) % 360;
         this._isSpinning = false;
+        ButtonsFactory.enableControls();
       }
     };
 

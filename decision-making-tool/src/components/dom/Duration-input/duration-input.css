@@ -1,0 +1,15 @@
+.app__duration-input[readonly],
+.app__duration-input[readonly]:hover,
+.app__duration-input[readonly]:focus,
+.app__duration-input[readonly]:active {
+  cursor: not-allowed;
+
+  border-color: var(--disabled-border);
+
+  color: var(--disabled-text);
+
+  opacity: 0.5;
+  background-color: var(--disabled-bg);
+  filter: grayscale(50%);
+  box-shadow: none;
+}
