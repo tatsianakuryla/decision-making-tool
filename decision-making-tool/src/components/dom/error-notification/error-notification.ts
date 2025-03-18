@@ -5,13 +5,18 @@ import {
 import './error-notification.css';
 
 export class ErrorNotification {
+  private static readonly CLOSE_TIMEOUT_MS = 5000;
+  private static readonly EMPTY_TEXT = '';
+
   private _errorNotification: HTMLElement;
 
   constructor() {
     this._errorNotification = createElementWithClass('div', [
       'app__error-modal',
     ]);
-    this._errorNotification.append(createParagraph('app__error-text', ''));
+    this._errorNotification.append(
+      createParagraph('app__error-text', ErrorNotification.EMPTY_TEXT),
+    );
   }
 
   public get getErrorNotification(): HTMLElement {
@@ -22,7 +27,7 @@ export class ErrorNotification {
     this._errorNotification.classList.add('show');
     setTimeout(() => {
       this._close();
-    }, 3000);
+    }, ErrorNotification.CLOSE_TIMEOUT_MS);
     this._errorNotification.textContent = text;
   }
 

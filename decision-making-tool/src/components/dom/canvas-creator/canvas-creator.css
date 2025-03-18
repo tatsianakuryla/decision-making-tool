@@ -1,6 +1,6 @@
 .app__canvas {
-  max-width: none;
-  max-height: none;
   display: block;
   box-sizing: border-box;
+  max-width: none;
+  max-height: none;
 }

@@ -2,6 +2,7 @@ import { createElementWithClass } from '../../utils/helpers';
 import { idGenerator, optionsStorage } from '../..';
 
 export class OptionsExporter {
+  private static readonly FILE_NAME = 'options.json';
   private _exportLink: HTMLElement;
 
   constructor() {
@@ -28,7 +29,7 @@ export class OptionsExporter {
       this._exportLink.href = URL.createObjectURL(
         new Blob([dataToSave], { type: 'application/json' }),
       );
-      this._exportLink.download = 'options.json';
+      this._exportLink.download = OptionsExporter.FILE_NAME;
     }
     this._exportLink.click();
     document.body.removeChild(this._exportLink);

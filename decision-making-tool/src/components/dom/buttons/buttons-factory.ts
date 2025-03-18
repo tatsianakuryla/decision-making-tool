@@ -13,8 +13,23 @@ import { Button } from './button';
 import './buttons-factory.css';
 import { StartScreen } from '../start-screen/start-screen';
 import { DecisionPickerScreen } from '../decision-picker-screen/decision-picker-screen';
+import { OptionsStorage } from '../../options-storage/options-storage';
 
 export class ButtonsFactory {
+  public static readonly BUTTON_TITLES = {
+    ADD_OPTION: 'Add new option',
+    PASTE_LIST: 'Paste list',
+    CLEAR_LIST: 'Clear list',
+    SAVE_LIST: 'Save list to file',
+    LOAD_LIST: 'Load list from file',
+    START: 'Start',
+    BACK: 'back',
+    SOUND: 'sound',
+    DELETE: 'delete',
+    CANCEL: 'Cancel',
+    CONFIRM: 'Confirm',
+  };
+
   private static _backButton: HTMLElement;
   private static _soundToggleButton: HTMLElement;
   private static _startPickingButton: HTMLElement;
@@ -25,12 +40,22 @@ export class ButtonsFactory {
       'flex',
     ]);
 
-    const addOptionButton = Button.createButton('Add new option');
-    const pasteOptionsButton = Button.createButton('Paste list');
-    const clearListButton = Button.createButton('Clear list');
-    const saveListButton = Button.createButton('Save list to file');
-    const loadListButton = Button.createButton('Load list from file');
-    const startButton = Button.createButton('Start');
+    const addOptionButton = Button.createButton(
+      ButtonsFactory.BUTTON_TITLES.ADD_OPTION,
+    );
+    const pasteOptionsButton = Button.createButton(
+      ButtonsFactory.BUTTON_TITLES.PASTE_LIST,
+    );
+    const clearListButton = Button.createButton(
+      ButtonsFactory.BUTTON_TITLES.CLEAR_LIST,
+    );
+    const saveListButton = Button.createButton(
+      ButtonsFactory.BUTTON_TITLES.SAVE_LIST,
+    );
+    const loadListButton = Button.createButton(
+      ButtonsFactory.BUTTON_TITLES.LOAD_LIST,
+    );
+    const startButton = Button.createButton(ButtonsFactory.BUTTON_TITLES.START);
 
     buttonContainer.append(
       addOptionButton,
@@ -68,11 +93,13 @@ export class ButtonsFactory {
     });
 
     startButton.addEventListener('click', () => {
-      if (optionsStorage.countValidOptions() < 2) {
+      if (
+        optionsStorage.countValidOptions() < OptionsStorage.MIN_VALID_OPTIONS
+      ) {
         addValidOptionModal.open();
       } else {
         DecisionPickerScreen.show();
-        decisionPicker.updateOptions();
+        decisionPicker.initialize();
       }
     });
 
@@ -86,9 +113,18 @@ export class ButtonsFactory {
       'flex',
     ]);
 
-    this._backButton = Button.createButton('back');
-    this._soundToggleButton = Button.createButton('sound');
-    this._startPickingButton = Button.createButton('Start');
+    this._backButton = Button.createButton(ButtonsFactory.BUTTON_TITLES.BACK);
+    this._soundToggleButton = Button.createButton(
+      ButtonsFactory.BUTTON_TITLES.SOUND,
+    );
+
+    if (!decisionPicker.isSelectedSoundOn) {
+      this._soundToggleButton.classList.add('app__button_sound-off');
+    }
+
+    this._startPickingButton = Button.createButton(
+      ButtonsFactory.BUTTON_TITLES.START,
+    );
 
     container.append(
       this._backButton,

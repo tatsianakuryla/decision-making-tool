@@ -8,6 +8,7 @@ export type Option = {
 };
 
 export class OptionsStorage {
+  public static MIN_VALID_OPTIONS: number = 2;
   private _optionsArray: Option[];
 
   constructor() {
@@ -63,8 +64,7 @@ export class OptionsStorage {
 
   public countValidOptions(): number {
     return this._optionsArray.reduce((acc: number, option): number => {
-      option.title.length > 0 && +option.weight > 0 ? acc++ : acc;
-      return acc;
+      return option.title.length > 0 && +option.weight > 0 ? acc + 1 : acc;
     }, 0);
   }
 

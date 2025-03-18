@@ -69,7 +69,7 @@ export class OptionsImporter {
 
           this._readData = parsedOptions;
           optionsStorage.clear();
-          idGenerator.setIdCouter(parsedId);
+          idGenerator.setIdCounter(parsedId);
           this._readData.forEach((object: Option) => {
             optionsStorage.addOption(object);
           });

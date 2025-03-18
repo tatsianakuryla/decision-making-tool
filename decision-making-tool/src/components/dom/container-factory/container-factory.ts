@@ -2,6 +2,8 @@ import { createElementWithClass } from '../../../utils/helpers';
 import './container-factory.css';
 
 export class ContainerFactory {
+  private static readonly APP_TITLE_TEXT = 'Decision Making Tool';
+
   public static createAppContainer(): HTMLElement {
     const container = createElementWithClass('div', ['app', 'flex']);
     container.append(this.createAppTitle());
@@ -10,7 +12,7 @@ export class ContainerFactory {
 
   public static createAppTitle(): HTMLElement {
     const title = createElementWithClass('h1', ['app__title']);
-    title.textContent = 'Decision Making Tool';
+    title.textContent = ContainerFactory.APP_TITLE_TEXT;
 
     return title;
   }

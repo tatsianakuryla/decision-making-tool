@@ -1,5 +1,6 @@
 import { createElementWithClass } from '../../../utils/helpers';
 import { Button } from '../buttons/button';
+import { ButtonsFactory } from '../buttons/buttons-factory';
 
 export abstract class Modal {
   protected _modal: HTMLElement;
@@ -39,6 +40,7 @@ export abstract class Modal {
       if (this._modal instanceof HTMLDialogElement) {
         document.body.prepend(this._modal);
         this._modal.showModal();
+        document.body.style.overflow = 'hidden';
         this._isOpen = true;
       }
     }
@@ -48,12 +50,15 @@ export abstract class Modal {
     if (this._modal instanceof HTMLDialogElement && this._isOpen) {
       this._modal.close();
       this._modal.remove();
+      document.body.style.overflow = '';
       this._isOpen = false;
     }
   }
 
   protected _createCancelButton(): void {
-    const cancelButton = Button.createButton('Cancel');
+    const cancelButton = Button.createButton(
+      ButtonsFactory.BUTTON_TITLES.CANCEL,
+    );
     this._buttonsContainer.append(cancelButton);
     cancelButton.addEventListener('click', () => {
       this.close();
