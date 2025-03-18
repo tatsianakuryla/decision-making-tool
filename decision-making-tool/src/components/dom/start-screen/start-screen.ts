@@ -5,6 +5,7 @@ import {
   startWindowContainer,
 } from '../../..';
 import { createElementWithClass } from '../../../utils/helpers';
+import { Router } from '../../router/router';
 import { ButtonsFactory } from '../buttons/buttons-factory';
 import './start-screen.css';
 
@@ -27,7 +28,10 @@ export class StartScreen {
   }
 
   public static show(): void {
-    appContainer.removeChild(decisionPickerContainer);
+    Router.navigateTo('/options');
+    if (appContainer.contains(decisionPickerContainer)) {
+      appContainer.removeChild(decisionPickerContainer);
+    }
     appContainer.append(startWindowContainer);
   }
 }

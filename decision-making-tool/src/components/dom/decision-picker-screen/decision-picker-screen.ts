@@ -1,11 +1,13 @@
 import {
   appContainer,
   canvas,
+  decisionPicker,
   decisionPickerContainer,
   pickedOptionInfoElement,
   startWindowContainer,
 } from '../../..';
 import { createElementWithClass } from '../../../utils/helpers';
+import { Router } from '../../router/router';
 import { ButtonsFactory } from '../buttons/buttons-factory';
 import './decision-picker-screen.css';
 
@@ -30,7 +32,11 @@ export class DecisionPickerScreen {
   }
 
   public static show(): void {
-    appContainer.removeChild(startWindowContainer);
+    Router.navigateTo('/picker');
+    if (appContainer.contains(startWindowContainer)) {
+      appContainer.removeChild(startWindowContainer);
+    }
     appContainer.append(decisionPickerContainer);
+    decisionPicker.initialize();
   }
 }

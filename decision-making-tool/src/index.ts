@@ -11,6 +11,7 @@ import { PickedOptionInfo } from './components/dom/picked-option-info/picked-opt
 import { DurationInput } from './components/dom/duration-input/duration-input';
 import './styles/modern-normalize.css';
 import './styles/style.css';
+import { Router } from './components/router/router';
 
 export const appContainer = ContainerFactory.createAppContainer();
 
@@ -35,9 +36,10 @@ export const startWindowContainer = startWindow.container;
 
 appContainer.append(
   errorNotification.getErrorNotification,
-  startWindowContainer,
+  // startWindowContainer,
 );
 
 document.body.append(appContainer);
+Router.init();
 optionsStorage.initialize();
 optionsRenderer.renderOptionsList(optionsStorage.getOptionsArray);
