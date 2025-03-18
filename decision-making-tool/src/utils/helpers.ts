@@ -14,3 +14,11 @@ export function createParagraph(className: string, text: string): HTMLElement {
   paragraph.textContent = text;
   return paragraph;
 }
+
+export function comaDottKeydownPrevent(element: HTMLElement): void {
+  element.addEventListener('keydown', (event: KeyboardEvent) => {
+    if (event.key === '.' || event.key === ',') {
+      event.preventDefault();
+    }
+  });
+}
