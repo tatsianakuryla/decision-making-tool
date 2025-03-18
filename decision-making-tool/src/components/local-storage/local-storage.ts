@@ -26,4 +26,13 @@ export class LocalStorage {
     const result = localStorage.getItem(key);
     return result ? JSON.parse(result) : 0;
   }
+
+  public static saveSoundState(key: string, value: boolean) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  public static getSoundState(key: string): boolean {
+    const result = localStorage.getItem(key);
+    return result ? JSON.parse(result) : true;
+  }
 }
