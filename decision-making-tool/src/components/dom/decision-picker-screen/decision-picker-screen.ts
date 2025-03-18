@@ -3,6 +3,7 @@ import {
   canvas,
   decisionPicker,
   decisionPickerContainer,
+  errorPageContainer,
   pickedOptionInfoElement,
   startWindowContainer,
 } from '../../..';
@@ -35,6 +36,9 @@ export class DecisionPickerScreen {
     Router.navigateTo('/picker');
     if (appContainer.contains(startWindowContainer)) {
       appContainer.removeChild(startWindowContainer);
+    }
+    if (appContainer.contains(errorPageContainer)) {
+      appContainer.removeChild(errorPageContainer);
     }
     appContainer.append(decisionPickerContainer);
     decisionPicker.initialize();

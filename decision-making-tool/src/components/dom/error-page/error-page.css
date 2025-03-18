@@ -1,0 +1,18 @@
+.app__error-page {
+  flex-direction: column;
+  align-self: center;
+}
+
+.app__buttons-error {
+  margin-bottom: 30px;
+}
+
+.app__button_back {
+  min-height: 50px;
+}
+
+.app__error-message {
+  padding: 10px;
+  font-size: 2rem;
+  background-color: var(--buttons-hover-backgrond);
+}

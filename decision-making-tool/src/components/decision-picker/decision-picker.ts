@@ -14,8 +14,6 @@ import { type Option } from '../options-storage/options-storage';
 type CanvaOptionType = Option & { color: string };
 
 export class DecisionPicker {
-  public isSelectedSoundOn: boolean;
-
   private static readonly WHEEL_RADIUS_FACTOR = 0.95;
   private static readonly DEFAULT_DURATION_MS = 15000;
   private static readonly FULL_CIRCLE_DEGREES = 360;
@@ -40,6 +38,8 @@ export class DecisionPicker {
   private static readonly MIN_SECTION_ANGLE_DEG = 10;
   private static readonly TEXT_STROKE_WIDTH = 2;
   private static readonly ELLIPSIS = '...';
+
+  public isSelectedSoundOn: boolean;
 
   private _options: CanvaOptionType[];
   private _totalOptionsWeight: number;
@@ -165,7 +165,7 @@ export class DecisionPicker {
       .catch((): void => errorNotification.open('Audio play failed'));
   }
 
-  private _shuffleOptions() {
+  private _shuffleOptions(): void {
     for (let i = this._options.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [this._options[i], this._options[j]] = [

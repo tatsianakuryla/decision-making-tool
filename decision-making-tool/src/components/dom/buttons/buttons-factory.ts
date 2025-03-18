@@ -146,6 +146,18 @@ export class ButtonsFactory {
     return container;
   }
 
+  public static createErrorPageButtons(): HTMLElement {
+    const container = createElementWithClass('div', [
+      'app__buttons-container',
+      'app__buttons-error',
+    ]);
+
+    const backButton = Button.createButton(ButtonsFactory.BUTTON_TITLES.BACK);
+    backButton.addEventListener('click', () => StartScreen.show());
+    container.append(backButton);
+    return container;
+  }
+
   public static enableControls(): void {
     if (this._backButton instanceof HTMLButtonElement) {
       this._backButton.disabled = false;

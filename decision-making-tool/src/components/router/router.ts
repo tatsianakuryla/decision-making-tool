@@ -1,30 +1,31 @@
-import { DecisionPickerScreen } from '../dom/decision-picker-screen/decision-picker-screen';
-import { StartScreen } from '../dom/start-screen/start-screen';
+import { ErrorPage } from '../dom/error-page/error-page';
 
 export class Router {
   private static routes: Record<string, () => void> = {};
 
-  public static init() {
+  public static init(): void {
     window.addEventListener('hashchange', () => this.handleRoute());
     document.addEventListener('DOMContentLoaded', () => this.handleRoute());
+    this.handleRoute();
   }
 
-  public static addRoute(path: string, handler: () => void) {
+  public static addRoute(path: string, handler: () => void): void {
     this.routes[path] = handler;
   }
 
-  public static navigateTo(path: string) {
+  public static navigateTo(path: string): void {
     if (location.hash !== `#${path}`) {
       location.hash = path;
     }
   }
 
-  private static handleRoute() {
+  private static handleRoute(): void {
     const path = location.hash.slice(1) || '/';
-    if (path === '/picker') {
-      DecisionPickerScreen.show();
+
+    if (this.routes[path]) {
+      this.routes[path]();
     } else {
-      StartScreen.show();
+      ErrorPage.show();
     }
   }
 }

@@ -27,7 +27,7 @@ export class LocalStorage {
     return result ? JSON.parse(result) : 0;
   }
 
-  public static saveSoundState(key: string, value: boolean) {
+  public static saveSoundState(key: string, value: boolean): void {
     localStorage.setItem(key, JSON.stringify(value));
   }
 

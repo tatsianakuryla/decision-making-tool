@@ -12,6 +12,7 @@ import { DurationInput } from './components/dom/duration-input/duration-input';
 import './styles/modern-normalize.css';
 import './styles/style.css';
 import { Router } from './components/router/router';
+import { ErrorPage } from './components/dom/error-page/error-page';
 
 export const appContainer = ContainerFactory.createAppContainer();
 
@@ -34,9 +35,25 @@ export const idGenerator = new IdGenerator();
 export const startWindow = new StartScreen();
 export const startWindowContainer = startWindow.container;
 
+export const errorPage = new ErrorPage();
+export const errorPageContainer = errorPage.container;
+
 appContainer.append(errorNotification.getErrorNotification);
 
 document.body.append(appContainer);
+
+Router.addRoute('/', () => {
+  StartScreen.show();
+});
+
+Router.addRoute('/options', () => {
+  StartScreen.show();
+});
+
+Router.addRoute('/picker', () => {
+  DecisionPickerScreen.show();
+});
+
 Router.init();
 optionsStorage.initialize();
 optionsRenderer.renderOptionsList(optionsStorage.getOptionsArray);

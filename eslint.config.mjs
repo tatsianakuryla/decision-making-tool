@@ -35,6 +35,7 @@ export default [
         performance: 'readonly',
         requestAnimationFrame: 'readonly',
         Audio: 'readonly',
+        location: 'readonly',
       },
     },
     plugins: {

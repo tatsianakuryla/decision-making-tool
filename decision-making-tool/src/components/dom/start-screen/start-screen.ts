@@ -1,6 +1,7 @@
 import {
   appContainer,
   decisionPickerContainer,
+  errorPageContainer,
   optionsRenderer,
   startWindowContainer,
 } from '../../..';
@@ -31,6 +32,9 @@ export class StartScreen {
     Router.navigateTo('/options');
     if (appContainer.contains(decisionPickerContainer)) {
       appContainer.removeChild(decisionPickerContainer);
+    }
+    if (appContainer.contains(errorPageContainer)) {
+      appContainer.removeChild(errorPageContainer);
     }
     appContainer.append(startWindowContainer);
   }
