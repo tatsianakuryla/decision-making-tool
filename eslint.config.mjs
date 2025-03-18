@@ -34,6 +34,7 @@ export default [
         setTimeout: 'readonly',
         performance: 'readonly',
         requestAnimationFrame: 'readonly',
+        Audio: 'readonly',
       },
     },
     plugins: {
