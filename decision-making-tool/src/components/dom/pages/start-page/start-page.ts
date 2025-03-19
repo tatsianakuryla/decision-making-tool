@@ -17,7 +17,7 @@ export class StartPage extends Page {
     this._container.prepend(optionsRenderer.optionsList);
   }
 
-  public static override show() {
+  public static override show(): void {
     super.show(
       '/options',
       pickerPageContainer,

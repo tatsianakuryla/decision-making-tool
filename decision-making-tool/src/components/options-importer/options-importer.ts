@@ -73,7 +73,7 @@ export class OptionsImporter {
           this._readData.forEach((object: Option) => {
             optionsStorage.addOption(object);
           });
-          optionsRenderer.renderOptionsList(optionsStorage.getOptionsArray);
+          optionsRenderer.renderOptionsList(optionsStorage.optionsArray);
         } catch {
           errorNotification.open('Invalid file format!');
         }

@@ -1,7 +1,4 @@
-import {
-  createElementWithClass,
-  createParagraph,
-} from '../../../utils/helpers';
+import { createContainer, createParagraph } from '../../../utils/helpers';
 import './error-notification.css';
 
 export class ErrorNotification {
@@ -11,15 +8,13 @@ export class ErrorNotification {
   private _errorNotification: HTMLElement;
 
   constructor() {
-    this._errorNotification = createElementWithClass('div', [
-      'app__error-modal',
-    ]);
+    this._errorNotification = createContainer(['app__error-modal']);
     this._errorNotification.append(
       createParagraph('app__error-text', ErrorNotification.EMPTY_TEXT),
     );
   }
 
-  public get getErrorNotification(): HTMLElement {
+  public get errorNotification(): HTMLElement {
     return this._errorNotification;
   }
 

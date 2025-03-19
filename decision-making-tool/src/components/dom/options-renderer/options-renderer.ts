@@ -20,11 +20,11 @@ export class OptionsRenderer {
   public renderOptionsList(optionsArray: Option[]): void {
     this.optionsList.replaceChildren();
     optionsArray.forEach((option) =>
-      this.optionsList.append(OptionsItemFactory.getItem(option)),
+      this.optionsList.append(OptionsItemFactory.createItem(option)),
     );
   }
 
   public renderOption(option: Option): void {
-    this.optionsList.append(OptionsItemFactory.getItem(option));
+    this.optionsList.append(OptionsItemFactory.createItem(option));
   }
 }

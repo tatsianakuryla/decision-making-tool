@@ -15,7 +15,7 @@ export class OptionsStorage {
     this._optionsArray = LocalStorage.getOptions('options') ?? [];
   }
 
-  public get getOptionsArray(): Option[] {
+  public get optionsArray(): Option[] {
     return this._optionsArray;
   }
 
@@ -26,7 +26,7 @@ export class OptionsStorage {
   public createOption(title: string, weight: string): Option {
     idGenerator.idCounterIncrease();
     const option = {
-      id: '#' + idGenerator.getIdCounter,
+      id: '#' + idGenerator.idCounter,
       title: title,
       weight: weight,
     };

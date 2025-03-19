@@ -1,11 +1,11 @@
 import { appContainer } from '../../..';
-import { createElementWithClass } from '../../../utils/helpers';
+import { createContainer } from '../../../utils/helpers';
 
 export abstract class Page {
   protected _container: HTMLElement;
 
   constructor(buttonsContainer: HTMLElement, classes: string[]) {
-    this._container = createElementWithClass('div', classes);
+    this._container = createContainer(classes);
     this._container.append(buttonsContainer);
   }
 

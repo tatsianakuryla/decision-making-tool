@@ -140,7 +140,7 @@ export class DecisionPicker {
   public initialize(): void {
     this._ctx.clearRect(0, 0, this._size, this._size);
     this._rotationAngle = 0;
-    this._options = optionsStorage.getOptionsArray
+    this._options = optionsStorage.optionsArray
       .filter((option) => option.title.length && +option.weight > 0)
       .map((option) => ({
         ...option,

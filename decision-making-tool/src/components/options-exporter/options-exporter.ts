@@ -11,7 +11,7 @@ export class OptionsExporter {
     ]);
   }
 
-  public get getExportLink(): HTMLElement {
+  public get exportLink(): HTMLElement {
     return this._exportLink;
   }
 
@@ -19,8 +19,8 @@ export class OptionsExporter {
     document.body.append(this._exportLink);
     const dataToSave = JSON.stringify(
       {
-        options: optionsStorage.getOptionsArray,
-        lastId: idGenerator.getIdCounter,
+        options: optionsStorage.optionsArray,
+        lastId: idGenerator.idCounter,
       },
       null,
       2,

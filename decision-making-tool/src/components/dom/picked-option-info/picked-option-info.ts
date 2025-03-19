@@ -17,7 +17,7 @@ export class PickedOptionInfo {
     });
   }
 
-  public get getInfo(): HTMLElement {
+  public get info(): HTMLElement {
     return this._info;
   }
 

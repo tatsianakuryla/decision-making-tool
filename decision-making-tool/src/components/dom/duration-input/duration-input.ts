@@ -28,25 +28,27 @@ export class DurationInput {
       ).toString();
     }
 
-    this._input.addEventListener('change', () => {
-      if (this._input instanceof HTMLInputElement) {
-        const value = +this._input.value;
-        if (
-          value >= DurationInput.MIN_DURATION_SEC &&
-          value <= DurationInput.MAX_DURATION_SEC
-        ) {
-          decisionPicker.setDuration(value);
-        } else {
-          this._input.value = DurationInput.DEFAULT_DURATION_SEC.toString();
-          errorNotification.open(DurationInput.ERROR_MESSAGE);
-        }
-      }
-    });
+    this._input.addEventListener('change', () => this.handleChange.bind(this));
 
     comaDottKeydownPrevent(this._input);
   }
 
-  public get getInput(): HTMLElement {
+  public get input(): HTMLElement {
     return this._input;
+  }
+
+  private handleChange(): void {
+    if (!this._input || !(this._input instanceof HTMLInputElement)) return;
+
+    const value = +this._input.value;
+    if (
+      value >= DurationInput.MIN_DURATION_SEC &&
+      value <= DurationInput.MAX_DURATION_SEC
+    ) {
+      decisionPicker.setDuration(value);
+    } else {
+      this._input.value = DurationInput.DEFAULT_DURATION_SEC.toString();
+      errorNotification.open(DurationInput.ERROR_MESSAGE);
+    }
   }
 }

@@ -19,7 +19,7 @@ export class PickerPage extends Page {
     this._container.append(pickedOptionInfoElement, canvas);
   }
 
-  public static override show() {
+  public static override show(): void {
     super.show(
       '/picker',
       startPageContainer,

@@ -17,7 +17,7 @@ import './styles/style.css';
 export const appContainer = ContainerFactory.createAppContainer();
 
 export const canvasCreator = new CanvasCreator();
-export const canvas = canvasCreator.getCanvas;
+export const canvas = canvasCreator.canvas;
 
 export const optionsStorage = new OptionsStorage();
 export const decisionPicker = new DecisionPicker();
@@ -25,10 +25,10 @@ export const optionsRenderer = new OptionsRenderer();
 export const errorNotification = new ErrorNotification();
 
 export const durationInput = new DurationInput();
-export const durationInputElement = durationInput.getInput;
+export const durationInputElement = durationInput.input;
 
 export const pickedOptionInfo = new PickedOptionInfo();
-export const pickedOptionInfoElement = pickedOptionInfo.getInfo;
+export const pickedOptionInfoElement = pickedOptionInfo.info;
 
 export const startPage = new StartPage();
 export const startPageContainer = startPage.container;
@@ -41,7 +41,7 @@ export const errorPageContainer = errorPage.container;
 
 export const idGenerator = new IdGenerator();
 
-appContainer.append(errorNotification.getErrorNotification);
+appContainer.append(errorNotification.errorNotification);
 
 document.body.append(appContainer);
 
@@ -59,4 +59,4 @@ Router.addRoute('/picker', () => {
 
 Router.init();
 optionsStorage.initialize();
-optionsRenderer.renderOptionsList(optionsStorage.getOptionsArray);
+optionsRenderer.renderOptionsList(optionsStorage.optionsArray);

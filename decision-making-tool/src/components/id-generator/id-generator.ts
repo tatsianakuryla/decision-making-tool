@@ -7,7 +7,7 @@ export class IdGenerator {
     this._idCounter = LocalStorage.getId('idGenerator') ?? 0;
   }
 
-  public get getIdCounter(): number {
+  public get idCounter(): number {
     return this._idCounter;
   }
 

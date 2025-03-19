@@ -15,7 +15,7 @@ export class CanvasCreator {
     }
   }
 
-  public get getCanvas(): HTMLElement {
+  public get canvas(): HTMLElement {
     return this._canvas;
   }
 }

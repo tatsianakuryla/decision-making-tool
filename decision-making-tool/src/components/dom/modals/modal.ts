@@ -1,4 +1,7 @@
-import { createElementWithClass } from '../../../utils/helpers';
+import {
+  createContainer,
+  createElementWithClass,
+} from '../../../utils/helpers';
 import { Button } from '../buttons/button';
 import { ButtonsFactory } from '../buttons/buttons-factory';
 
@@ -10,15 +13,9 @@ export abstract class Modal {
 
   constructor(modalClass: string) {
     this._modal = createElementWithClass('dialog', ['app__modal', modalClass]);
-    this._modalContainer = createElementWithClass('div', [
-      'app__modal-container',
-      'flex',
-    ]);
+    this._modalContainer = createContainer(['app__modal-container', 'flex']);
 
-    this._buttonsContainer = createElementWithClass('div', [
-      'app__modal-buttons',
-      'flex',
-    ]);
+    this._buttonsContainer = createContainer(['app__modal-buttons', 'flex']);
 
     this._isOpen = false;
     this._modalContainer.append(this._buttonsContainer);

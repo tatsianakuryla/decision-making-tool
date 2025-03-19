@@ -1,6 +1,7 @@
 import { optionsRenderer, optionsStorage } from '../../..';
 import {
   comaDottKeydownPrevent,
+  createContainer,
   createElementWithClass,
 } from '../../../utils/helpers';
 import { type Option } from '../../options-storage/options-storage';
@@ -12,11 +13,11 @@ export class OptionsItemFactory {
   private static readonly TITLE_PLACEHOLDER = 'Title';
   private static readonly WEIGHT_PLACEHOLDER = 'Weight';
 
-  public static getItem(element: Option): HTMLElement {
+  public static createItem(element: Option): HTMLElement {
     const optionItem = createElementWithClass('li', ['app__option', 'flex']);
     optionItem.dataset.id = element.id;
 
-    const optionId = createElementWithClass('div', ['app__option-id']);
+    const optionId = createContainer(['app__option-id']);
     optionId.textContent = OptionsItemFactory.ID_PREFIX + element.id;
 
     const optionTitle = createElementWithClass('input', ['app__option-title']);
@@ -64,7 +65,7 @@ export class OptionsItemFactory {
     optionItem.append(deleteOptionButton);
     deleteOptionButton.addEventListener('click', () => {
       optionsStorage.removeOption(element.id);
-      optionsRenderer.renderOptionsList(optionsStorage.getOptionsArray);
+      optionsRenderer.renderOptionsList(optionsStorage.optionsArray);
     });
   }
 }

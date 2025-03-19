@@ -4,16 +4,19 @@ import {
   durationInputElement,
   decisionPicker,
 } from '../../..';
-import { createElementWithClass } from '../../../utils/helpers';
+import {
+  createButton,
+  createContainer,
+  disabledElement,
+} from '../../../utils/helpers';
 import { OptionsImporter } from '../../options-importer/options-importer';
 import { OptionsExporter } from '../../options-exporter/options-exporter';
 import { ValidOptionModal } from '../modals/valid-option-modal';
 import { OptionsPasteModal } from '../modals/options-paste-modal';
-import { Button } from './button';
-import './buttons-factory.css';
 import { StartPage } from '../pages/start-page/start-page';
 import { OptionsStorage } from '../../options-storage/options-storage';
 import { PickerPage } from '../pages/picker-page/picker-page';
+import './buttons-factory.css';
 
 export class ButtonsFactory {
   public static readonly BUTTON_TITLES = {
@@ -35,27 +38,42 @@ export class ButtonsFactory {
   private static _startPickingButton: HTMLElement;
 
   public static createStartScreenButtons(): HTMLElement {
-    const buttonContainer = createElementWithClass('div', [
-      'app__buttons-container',
-      'flex',
-    ]);
+    const buttonContainer = createContainer(['app__buttons-container', 'flex']);
 
-    const addOptionButton = Button.createButton(
-      ButtonsFactory.BUTTON_TITLES.ADD_OPTION,
+    const addOptionButton = createButton(this.BUTTON_TITLES.ADD_OPTION, () => {
+      optionsRenderer.renderOption(optionsStorage.addEmptyOption());
+    });
+
+    const pasteOptionsButton = createButton(
+      this.BUTTON_TITLES.PASTE_LIST,
+      () => {
+        pasteListModal.open();
+      },
     );
-    const pasteOptionsButton = Button.createButton(
-      ButtonsFactory.BUTTON_TITLES.PASTE_LIST,
-    );
-    const clearListButton = Button.createButton(
-      ButtonsFactory.BUTTON_TITLES.CLEAR_LIST,
-    );
-    const saveListButton = Button.createButton(
-      ButtonsFactory.BUTTON_TITLES.SAVE_LIST,
-    );
-    const loadListButton = Button.createButton(
-      ButtonsFactory.BUTTON_TITLES.LOAD_LIST,
-    );
-    const startButton = Button.createButton(ButtonsFactory.BUTTON_TITLES.START);
+
+    const clearListButton = createButton(this.BUTTON_TITLES.CLEAR_LIST, () => {
+      optionsStorage.clear();
+      optionsRenderer.renderOptionsList(optionsStorage.optionsArray);
+    });
+
+    const saveListButton = createButton(this.BUTTON_TITLES.SAVE_LIST, () => {
+      saveOptions.exportToJSON();
+    });
+
+    const loadListButton = createButton(this.BUTTON_TITLES.LOAD_LIST, () => {
+      loadOptions.loadOptions();
+    });
+
+    const startButton = createButton(this.BUTTON_TITLES.START, () => {
+      if (
+        optionsStorage.countValidOptions() < OptionsStorage.MIN_VALID_OPTIONS
+      ) {
+        addValidOptionModal.open();
+      } else {
+        PickerPage.show();
+        decisionPicker.initialize();
+      }
+    });
 
     buttonContainer.append(
       addOptionButton,
@@ -71,60 +89,32 @@ export class ButtonsFactory {
     const loadOptions = new OptionsImporter();
     const addValidOptionModal = new ValidOptionModal();
 
-    clearListButton.addEventListener('click', () => {
-      optionsStorage.clear();
-      optionsRenderer.renderOptionsList(optionsStorage.getOptionsArray);
-    });
-
-    addOptionButton.addEventListener('click', () => {
-      optionsRenderer.renderOption(optionsStorage.addEmptyOption());
-    });
-
-    pasteOptionsButton.addEventListener('click', () => {
-      pasteListModal.open();
-    });
-
-    saveListButton.addEventListener('click', () => {
-      saveOptions.exportToJSON();
-    });
-
-    loadListButton.addEventListener('click', () => {
-      loadOptions.loadOptions();
-    });
-
-    startButton.addEventListener('click', () => {
-      if (
-        optionsStorage.countValidOptions() < OptionsStorage.MIN_VALID_OPTIONS
-      ) {
-        addValidOptionModal.open();
-      } else {
-        PickerPage.show();
-        decisionPicker.initialize();
-      }
-    });
-
     return buttonContainer;
   }
 
   public static createDecisionPickerControls(): HTMLElement {
-    const container = createElementWithClass('div', [
+    const container = createContainer([
       'app__buttons-container',
       'app__buttons-container_picking',
       'flex',
     ]);
 
-    this._backButton = Button.createButton(ButtonsFactory.BUTTON_TITLES.BACK);
-    this._soundToggleButton = Button.createButton(
-      ButtonsFactory.BUTTON_TITLES.SOUND,
+    this._backButton = createButton(this.BUTTON_TITLES.BACK, () =>
+      StartPage.show(),
     );
+
+    this._soundToggleButton = createButton(this.BUTTON_TITLES.SOUND, () => {
+      this._soundToggleButton.classList.toggle('app__button_sound-off');
+      decisionPicker.toggleIsSelectedSoundOn();
+    });
 
     if (!decisionPicker.isSelectedSoundOn) {
       this._soundToggleButton.classList.add('app__button_sound-off');
     }
 
-    this._startPickingButton = Button.createButton(
-      ButtonsFactory.BUTTON_TITLES.START,
-    );
+    this._startPickingButton = createButton(this.BUTTON_TITLES.START, () => {
+      decisionPicker.spinWheel();
+    });
 
     container.append(
       this._backButton,
@@ -133,64 +123,37 @@ export class ButtonsFactory {
       this._startPickingButton,
     );
 
-    this._backButton.addEventListener('click', () => StartPage.show());
-
-    this._startPickingButton.addEventListener('click', () => {
-      decisionPicker.spinWheel();
-    });
-
-    this._soundToggleButton.addEventListener('click', () => {
-      this._soundToggleButton.classList.toggle('app__button_sound-off');
-      decisionPicker.toggleIsSelectedSoundOn();
-    });
     return container;
   }
 
   public static createErrorPageButtons(): HTMLElement {
-    const container = createElementWithClass('div', [
+    const container = createContainer([
       'app__buttons-container',
       'app__buttons-error',
     ]);
 
-    const backButton = Button.createButton(ButtonsFactory.BUTTON_TITLES.BACK);
-    backButton.addEventListener('click', () => StartPage.show());
+    const backButton = createButton(this.BUTTON_TITLES.BACK, () =>
+      StartPage.show(),
+    );
     container.append(backButton);
     return container;
   }
 
   public static enableControls(): void {
-    if (this._backButton instanceof HTMLButtonElement) {
-      this._backButton.disabled = false;
-    }
-
-    if (this._soundToggleButton instanceof HTMLButtonElement) {
-      this._soundToggleButton.disabled = false;
-    }
-
-    if (this._startPickingButton instanceof HTMLButtonElement) {
-      this._startPickingButton.disabled = false;
-    }
-
-    if (durationInputElement instanceof HTMLInputElement) {
-      durationInputElement.readOnly = false;
-    }
+    this.toggleControls(true);
   }
 
   public static disableControls(): void {
-    if (this._backButton instanceof HTMLButtonElement) {
-      this._backButton.disabled = true;
-    }
+    this.toggleControls(false);
+  }
 
-    if (this._soundToggleButton instanceof HTMLButtonElement) {
-      this._soundToggleButton.disabled = true;
-    }
-
-    if (this._startPickingButton instanceof HTMLButtonElement) {
-      this._startPickingButton.disabled = true;
-    }
+  private static toggleControls(isEnabled: boolean): void {
+    disabledElement(this._backButton, !isEnabled);
+    disabledElement(this._soundToggleButton, !isEnabled);
+    disabledElement(this._startPickingButton, !isEnabled);
 
     if (durationInputElement instanceof HTMLInputElement) {
-      durationInputElement.readOnly = true;
+      durationInputElement.readOnly = !isEnabled;
     }
   }
 }

@@ -23,7 +23,7 @@ export class ErrorPage extends Page {
     this._container.append(errorMessage);
   }
 
-  public static override show() {
+  public static override show(): void {
     super.show(
       '/error',
       startPageContainer,
