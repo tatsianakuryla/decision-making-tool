@@ -11,9 +11,9 @@ import { ValidOptionModal } from '../modals/valid-option-modal';
 import { OptionsPasteModal } from '../modals/options-paste-modal';
 import { Button } from './button';
 import './buttons-factory.css';
-import { StartScreen } from '../start-screen/start-screen';
-import { DecisionPickerScreen } from '../decision-picker-screen/decision-picker-screen';
+import { StartPage } from '../pages/start-page/start-page';
 import { OptionsStorage } from '../../options-storage/options-storage';
+import { PickerPage } from '../pages/picker-page/picker-page';
 
 export class ButtonsFactory {
   public static readonly BUTTON_TITLES = {
@@ -98,7 +98,7 @@ export class ButtonsFactory {
       ) {
         addValidOptionModal.open();
       } else {
-        DecisionPickerScreen.show();
+        PickerPage.show();
         decisionPicker.initialize();
       }
     });
@@ -133,7 +133,7 @@ export class ButtonsFactory {
       this._startPickingButton,
     );
 
-    this._backButton.addEventListener('click', () => StartScreen.show());
+    this._backButton.addEventListener('click', () => StartPage.show());
 
     this._startPickingButton.addEventListener('click', () => {
       decisionPicker.spinWheel();
@@ -153,7 +153,7 @@ export class ButtonsFactory {
     ]);
 
     const backButton = Button.createButton(ButtonsFactory.BUTTON_TITLES.BACK);
-    backButton.addEventListener('click', () => StartScreen.show());
+    backButton.addEventListener('click', () => StartPage.show());
     container.append(backButton);
     return container;
   }

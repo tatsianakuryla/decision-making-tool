@@ -1,4 +1,4 @@
-import { ErrorPage } from '../dom/error-page/error-page';
+import { ErrorPage } from '../dom/pages/error-page/error-page';
 
 export class Router {
   private static routes: Record<string, () => void> = {};
