@@ -38,6 +38,12 @@ export class DecisionPicker {
   private static readonly MIN_SECTION_ANGLE_DEG = 10;
   private static readonly TEXT_STROKE_WIDTH = 2;
   private static readonly ELLIPSIS = '...';
+  private static readonly FORBIDDEN_COLORS = [
+    DecisionPicker.POINTER_COLOR,
+    DecisionPicker.TEXT_COLOR,
+    DecisionPicker.CENTER_CIRCLE_COLOR,
+    DecisionPicker.CENTER_CIRCLE_OUTLINE_COLOR,
+  ];
 
   public isSelectedSoundOn: boolean;
 
@@ -235,22 +241,43 @@ export class DecisionPicker {
   }
 
   private _getOptionShare(options: Option): number {
-    return Number(options.weight) / this._totalOptionsWeight;
+    return this._totalOptionsWeight !== 0
+      ? Number(options.weight) / this._totalOptionsWeight
+      : 0;
   }
 
   private _getRandomColor(): string {
     let color;
+    let attempts = 0;
+
     do {
-      color = `hsl(${Math.random() * DecisionPicker.FULL_CIRCLE_DEGREES}, ${DecisionPicker.COLOR_SATURATION}%, ${DecisionPicker.COLOR_LIGHTNESS}%)`;
+      const hue = Math.floor(
+        Math.random() * DecisionPicker.FULL_CIRCLE_DEGREES,
+      );
+      color = `hsl(${hue}, ${DecisionPicker.COLOR_SATURATION}%, ${DecisionPicker.COLOR_LIGHTNESS}%)`;
+      attempts++;
     } while (
-      this._usedColors.has(color) ||
-      color === DecisionPicker.POINTER_COLOR ||
-      color === DecisionPicker.CENTER_CIRCLE_COLOR ||
-      color === DecisionPicker.TEXT_COLOR
+      (this._isColorTooSimilar(color) ||
+        DecisionPicker.FORBIDDEN_COLORS.includes(color)) &&
+      attempts < 20
     );
 
     this._usedColors.add(color);
     return color;
+  }
+
+  private _isColorTooSimilar(newColor: string): boolean {
+    const newHue = parseInt(newColor.match(/\d+/)![0]);
+
+    for (const usedColor of this._usedColors) {
+      const usedHue = parseInt(usedColor.match(/\d+/)![0]);
+
+      if (Math.abs(newHue - usedHue) < 30) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   private _drawRotatedWheel(): void {

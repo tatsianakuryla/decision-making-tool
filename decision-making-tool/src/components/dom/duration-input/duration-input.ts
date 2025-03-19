@@ -28,7 +28,7 @@ export class DurationInput {
       ).toString();
     }
 
-    this._input.addEventListener('change', () => this.handleChange.bind(this));
+    this._input.addEventListener('change', this.handleChange.bind(this));
 
     comaDottKeydownPrevent(this._input);
   }

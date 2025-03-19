@@ -28,7 +28,7 @@ export const durationInput = new DurationInput();
 export const durationInputElement = durationInput.input;
 
 export const pickedOptionInfo = new PickedOptionInfo();
-export const pickedOptionInfoElement = pickedOptionInfo.info;
+export const pickedOptionInfoElement = pickedOptionInfo.infoElement;
 
 export const startPage = new StartPage();
 export const startPageContainer = startPage.container;

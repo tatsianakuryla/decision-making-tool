@@ -42,36 +42,38 @@ Every empty space counts`;
   }
 
   private _handleOptionListInput(): void {
-    if (this._textArea instanceof HTMLTextAreaElement) {
-      if (this._textArea.value.trim().length > 0) {
-        let wrongDataFormatError = false;
-        const strings = this._textArea.value.split('\n');
+    if (
+      !(this._textArea instanceof HTMLTextAreaElement) ||
+      !this._textArea.value.trim()
+    )
+      return;
 
-        strings.forEach((option) => {
-          const lastCommaIndex = option.lastIndexOf(',');
-          if (!option.includes(',')) {
-            wrongDataFormatError = true;
-            return;
-          }
+    const strings = this._textArea.value.split('\n');
+    let hasError = false;
 
-          const title = option.slice(0, lastCommaIndex);
-          const regex = /[^\s.,!?;:(){}[\]<>/"'*-]/;
-          if (!regex.test(title)) {
-            wrongDataFormatError = true;
-            return;
-          }
-
-          const preWeight = option.slice(lastCommaIndex + 1).trim();
-          const weight = Number.isFinite(+preWeight) ? preWeight : '';
-
-          optionsRenderer.renderOption(
-            optionsStorage.createOption(title, weight.toString()),
-          );
-        });
-        if (wrongDataFormatError) {
-          errorNotification.open(OptionsPasteModal.ERROR_MESSAGE);
-        }
+    strings.forEach((option) => {
+      const lastCommaIndex = option.lastIndexOf(',');
+      if (!option.includes(',')) {
+        hasError = true;
+        return;
       }
+
+      const title = option.slice(0, lastCommaIndex);
+      const regex = /[^\s.,!?;:(){}[\]<>/"'*-]/;
+      if (!regex.test(title)) {
+        hasError = true;
+        return;
+      }
+
+      const preWeight = option.slice(lastCommaIndex + 1).trim();
+      const weight = Number.isFinite(+preWeight) ? preWeight : '';
+
+      optionsRenderer.renderOption(
+        optionsStorage.createOption(title, weight.toString()),
+      );
+    });
+    if (hasError) {
+      errorNotification.open(OptionsPasteModal.ERROR_MESSAGE);
     }
   }
 

@@ -6,12 +6,15 @@ export class ErrorNotification {
   private static readonly EMPTY_TEXT = '';
 
   private _errorNotification: HTMLElement;
+  private _errorTextElement: HTMLElement;
 
   constructor() {
     this._errorNotification = createContainer(['app__error-modal']);
-    this._errorNotification.append(
-      createParagraph('app__error-text', ErrorNotification.EMPTY_TEXT),
+    this._errorTextElement = createParagraph(
+      'app__error-text',
+      ErrorNotification.EMPTY_TEXT,
     );
+    this._errorNotification.append(this._errorTextElement);
   }
 
   public get errorNotification(): HTMLElement {
@@ -23,7 +26,7 @@ export class ErrorNotification {
     setTimeout(() => {
       this._close();
     }, ErrorNotification.CLOSE_TIMEOUT_MS);
-    this._errorNotification.textContent = text;
+    this._errorTextElement.textContent = text;
   }
 
   private _close(): void {

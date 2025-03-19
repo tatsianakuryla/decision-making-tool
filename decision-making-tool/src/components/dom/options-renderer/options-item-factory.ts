@@ -17,9 +17,23 @@ export class OptionsItemFactory {
     const optionItem = createElementWithClass('li', ['app__option', 'flex']);
     optionItem.dataset.id = element.id;
 
+    optionItem.append(
+      this.createItemId(element),
+      this.createItemTitle(element),
+      this.createItemWeight(element),
+    );
+    this.addDeleteButton(optionItem, element);
+
+    return optionItem;
+  }
+
+  private static createItemId(element: Option): HTMLElement {
     const optionId = createContainer(['app__option-id']);
     optionId.textContent = OptionsItemFactory.ID_PREFIX + element.id;
+    return optionId;
+  }
 
+  private static createItemTitle(element: Option): HTMLElement {
     const optionTitle = createElementWithClass('input', ['app__option-title']);
     if (optionTitle instanceof HTMLInputElement) {
       optionTitle.type = 'text';
@@ -32,7 +46,10 @@ export class OptionsItemFactory {
         });
       });
     }
+    return optionTitle;
+  }
 
+  private static createItemWeight(element: Option): HTMLElement {
     const optionWeight = createElementWithClass('input', [
       'app__option-weight',
     ]);
@@ -48,14 +65,10 @@ export class OptionsItemFactory {
       });
       comaDottKeydownPrevent(optionWeight);
     }
-
-    optionItem.append(optionId, optionTitle, optionWeight);
-    this.addDeleteButton(optionItem, element);
-
-    return optionItem;
+    return optionWeight;
   }
 
-  public static addDeleteButton(
+  private static addDeleteButton(
     optionItem: HTMLElement,
     element: Option,
   ): void {

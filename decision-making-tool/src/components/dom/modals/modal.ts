@@ -8,7 +8,6 @@ import { ButtonsFactory } from '../buttons/buttons-factory';
 export abstract class Modal {
   protected _modal: HTMLElement;
   protected _modalContainer: HTMLElement;
-  protected _isOpen: boolean;
   protected _buttonsContainer: HTMLElement;
 
   constructor(modalClass: string) {
@@ -17,7 +16,6 @@ export abstract class Modal {
 
     this._buttonsContainer = createContainer(['app__modal-buttons', 'flex']);
 
-    this._isOpen = false;
     this._modalContainer.append(this._buttonsContainer);
     this._modal.append(this._modalContainer);
     this._addModalEventListeners();
@@ -28,27 +26,21 @@ export abstract class Modal {
     return this._modal;
   }
 
-  public get isOpen(): boolean {
-    return this._isOpen;
-  }
-
   public open(): void {
-    if (!this._isOpen) {
-      if (this._modal instanceof HTMLDialogElement) {
-        document.body.prepend(this._modal);
-        this._modal.showModal();
-        document.body.style.overflow = 'hidden';
-        this._isOpen = true;
-      }
+    if (this._modal instanceof HTMLDialogElement) {
+      if (this._modal.open) return;
+      document.body.prepend(this._modal);
+      this._modal.showModal();
+      document.body.style.overflow = 'hidden';
     }
   }
 
   public close(): void {
-    if (this._modal instanceof HTMLDialogElement && this._isOpen) {
+    if (this._modal instanceof HTMLDialogElement) {
+      if (!this._modal.open) return;
       this._modal.close();
       this._modal.remove();
       document.body.style.overflow = '';
-      this._isOpen = false;
     }
   }
 
@@ -63,10 +55,8 @@ export abstract class Modal {
   }
 
   protected _addModalEventListeners(): void {
-    this._modal.addEventListener('cancel', (event) => {
-      event.preventDefault();
+    this._modal.addEventListener('cancel', () => {
       this.close();
-      this._isOpen = false;
     });
 
     this._modal.addEventListener('click', (event) => {
