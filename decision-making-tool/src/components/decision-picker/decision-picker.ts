@@ -24,8 +24,8 @@ export class DecisionPicker {
   private static readonly MAX_FONT_SIZE = 14;
   private static readonly COLOR_SATURATION = 70;
   private static readonly COLOR_LIGHTNESS = 60;
-  private static readonly MIN_SPIN_TURNS = 3;
-  private static readonly MAX_SPIN_TURNS = 6;
+  private static readonly MIN_SPIN_TURNS = 5;
+  private static readonly MAX_SPIN_TURNS = 10;
   private static readonly CENTER_CIRCLE_COLOR = '#000';
   private static readonly POINTER_COLOR = '#ff0000';
   private static readonly TEXT_COLOR = '#fff';
@@ -217,7 +217,6 @@ export class DecisionPicker {
     pointerAngle = (pointerAngle * Math.PI) / 180;
 
     let pickedOption = this._getOptionAtAngle(pointerAngle);
-    TextDecoderStream;
 
     if (pickedOptionInfoElement.textContent !== pickedOption) {
       pickedOptionInfoElement.textContent = pickedOption;
