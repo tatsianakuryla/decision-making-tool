@@ -9,7 +9,7 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
-    publicPath: '/async-race/',
+    publicPath: '/decision-making-tool/',
   },
   mode: 'development',
   devtool: 'source-map',
